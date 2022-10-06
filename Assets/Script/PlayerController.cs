@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
         {
             playerAnimator.Play("player_idle");
         }
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)){
+            rb.velocity = Vector2.zero;
+        }
     }
 
     void PlayerMovementHandler(PlayerMovement playerMovement){
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour
                        -(playerPosition.localScale.x),
                        playerPosition.localScale.y,
                        playerPosition.localScale.z
-                    );                    
+                    );
                 }
 
                 gameObject.transform.position = playerPosition.position;
