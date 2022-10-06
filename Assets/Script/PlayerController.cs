@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Animator playerAnimator;
     public float movementSpeed, jumpForce;
+    float walkSpeed;
+    Animator playerAnimator;
     Transform playerPosition;
     Rigidbody2D rb;
     bool canJump;
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
+        walkSpeed = movementSpeed;
         rb = GetComponent<Rigidbody2D>();
         canJump = true;
     }
@@ -40,9 +42,6 @@ public class PlayerController : MonoBehaviour
         if (!Input.anyKey && canJump)
         {
             playerAnimator.Play("player_idle");
-        }
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)){
-            rb.velocity = Vector2.zero;
         }
     }
 
@@ -100,6 +99,14 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "Floor"){
             canJump = true;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        movementSpeed = 0;
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        movementSpeed = walkSpeed;
     }
 }
 
