@@ -1,89 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainGameController : MonoBehaviour
 {
-    [Header("Player Options")]
-    public GameObject player;
-    public float playerMovementSpeed, jumpForce;
-    Animator playerAnimator;
-    Transform playerTranform;
-    Rigidbody2D rb2d;
-    bool canJump;
-    
+    public List<CollectableObject> collectables;
+    public static MainGameController instance;
+    public GameObject inventoryPanel,
+                    inventoryObjects,
+                    inventory;
+    public Text scoreBoard;
+    public Button inventoryButton;
+    public Button cancelBtn;
+    GameObject spawnObject;
+
     void Start()
     {
-        canJump = true;
-        playerAnimator = player.GetComponent<Animator>();
-        rb2d = player.GetComponent<Rigidbody2D>();
+        instance = this;
+        inventoryButton.onClick.AddListener(ViewInventory);
+        cancelBtn.onClick.AddListener(CloseInventory);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        PlayerInputHandler();
-    }
-
-#region PLAYER_CONTROLLER
-    void PlayerInputHandler(){
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) && canJump){
-            PlayerMovementHandler(PlayerMovementState.Jump);
-            PlayerAnimationHandler(PlayerMovementState.Jump);
-            canJump = false;
-        }
-        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)){
-            PlayerMovementHandler(PlayerMovementState.Run);
-            PlayerAnimationHandler(PlayerMovementState.Run);
-        }
-
-        if(!Input.anyKey && canJump){
-            playerAnimator.Play("player_idle");
+    void ViewInventory(){
+        inventoryPanel.SetActive(true);
+        foreach (var item in collectables)
+        {
+            if(item.collectionCount > 0){
+                spawnObject = Instantiate(inventoryObjects, inventory.transform);
+                spawnObject.GetComponent<Image>().sprite = item.collectable;
+                spawnObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "x" + item.collectionCount.ToString();
+            }
         }
     }
 
-    void PlayerMovementHandler(PlayerMovementState playerState){
-        switch(playerState){
-            case PlayerMovementState.Run:
-                playerTranform = player.transform;
-                playerTranform.position = new Vector3(
-                    (playerTranform.position.x + (Input.GetAxis("Horizontal") * playerMovementSpeed) * Time.deltaTime),
-                    playerTranform.position.y,
-                    playerTranform.position.z
-                );
-                playerTranform.position = playerTranform.position;
-                Debug.Log(playerTranform.position);
+    void CloseInventory(){
+        inventoryPanel.SetActive(false);
+        for(int i=0; i<inventory.transform.childCount; i++){
+            Destroy(inventory.transform.GetChild(i).gameObject);
+            Debug.Log(i +" Child Count : "+inventory.transform.childCount);
+        }
+    }
+
+    public void CollectCollectable(Collectables collectable){
+        foreach (var item in collectables)
+        {
+            if(item.collectableType == collectable){
+                item.collectionCount++;
                 break;
-            
-            case PlayerMovementState.Jump:
-                rb2d.AddForce((Vector2.up * (jumpForce * Time.deltaTime * 100)), ForceMode2D.Impulse);
-                break;
+            }
         }
     }
-
-    void PlayerAnimationHandler(PlayerMovementState playerMovementState){
-        switch(playerMovementState){
-            case PlayerMovementState.Run:
-                playerAnimator.Play("player_run");
-                break;
-            case PlayerMovementState.Jump:
-                playerAnimator.Play("player_jump");
-                break;
-        }
-    }
-#endregion
-
-    private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag == "Floor"){
-            canJump = true;
-        }
-    }
-
 }
 
-public enum PlayerMovementState{
-    Idle,
-    Run,
-    Jump,
-    Slide
+[System.Serializable]
+public class CollectableObject{
+    public Sprite collectable;
+    public Collectables collectableType;
+    public int collectionCount;
+}
+
+public enum Collectables{
+    Apple,
+    Bannana,
+    Berry,
+    Grape,
+    Meat,
+    Orange,
+    Pineapple
 }

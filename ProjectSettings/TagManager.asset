@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Floor
+  - Meat
+  - Fruit
   layers:
   - Default
   - TransparentFX

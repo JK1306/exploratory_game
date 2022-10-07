@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     Animator playerAnimator;
     Transform playerPosition;
     Rigidbody2D rb;
-    bool canJump;
+    bool canJump, inGround;
 
     void Start()
     {
@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerMovement.Jump:
+                rb.velocity = Vector2.zero;
                 rb.AddForce( jumpForce * gameObject.transform.up, ForceMode2D.Impulse);
                 canJump = false;
                 break;
@@ -102,11 +103,40 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        movementSpeed = 0;
+        Debug.Log("0---> "+other.bounds);
+        if(other.gameObject.tag == "Floor") movementSpeed = 0;
+
+        Debug.Log("Name : "+other.gameObject.name);
+        Debug.Log("Tag : "+other.gameObject.tag);
+        if(other.gameObject.tag == "Fruit" || other.gameObject.tag == "Meat"){
+            if(other.gameObject.name.Contains("apple")){
+                MainGameController.instance.CollectCollectable(Collectables.Apple);
+            }
+            if(other.gameObject.name.Contains("bannana")){
+                MainGameController.instance.CollectCollectable(Collectables.Bannana);
+            }
+            if(other.gameObject.name.Contains("berry")){
+                MainGameController.instance.CollectCollectable(Collectables.Berry);
+            }
+            if(other.gameObject.name.Contains("grape")){
+                MainGameController.instance.CollectCollectable(Collectables.Grape);
+            }
+            if(other.gameObject.name.Contains("meat")){
+                MainGameController.instance.CollectCollectable(Collectables.Meat);
+            }
+            if(other.gameObject.name.Contains("orange")){
+                MainGameController.instance.CollectCollectable(Collectables.Orange);
+            }
+            if(other.gameObject.name.Contains("pineapple")){
+                MainGameController.instance.CollectCollectable(Collectables.Pineapple);
+            }
+            Destroy(other.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         movementSpeed = walkSpeed;
+        Debug.Log(other.gameObject.name);
     }
 }
 
