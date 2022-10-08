@@ -13,6 +13,7 @@ public class MainGameController : MonoBehaviour
     public Text scoreBoard;
     public Button inventoryButton;
     public Button cancelBtn;
+    public AudioClip fruitGainAudio;
     GameObject spawnObject;
 
     void Start()

@@ -7,6 +7,9 @@ TagManager:
   - Floor
   - Meat
   - Fruit
+  - Blocker
+  - Hazard
+  - Animal
   layers:
   - Default
   - TransparentFX

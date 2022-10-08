@@ -5,18 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float movementSpeed, jumpForce;
+    public static PlayerController instance;
     float walkSpeed;
     Animator playerAnimator;
     Transform playerPosition;
     Rigidbody2D rb;
-    bool canJump, inGround;
+    AudioSource audioSource;
+    bool canJump; 
+    public bool inGround;
 
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
-        walkSpeed = movementSpeed;
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+
+        walkSpeed = movementSpeed;
         canJump = true;
+        instance = this;
     }
 
     void Update()
@@ -75,9 +81,11 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerMovement.Jump:
-                rb.velocity = Vector2.zero;
-                rb.AddForce( jumpForce * gameObject.transform.up, ForceMode2D.Impulse);
-                canJump = false;
+                if(inGround){
+                    rb.velocity = Vector2.zero;
+                    rb.AddForce( jumpForce * gameObject.transform.up, ForceMode2D.Impulse);
+                    canJump = false;
+                }
                 break;
         }
     }
@@ -96,19 +104,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ResetMovementSpeed(){
+        movementSpeed = walkSpeed;
+    }
+
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag == "Floor"){
+        if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Blocker"){
             canJump = true;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("0---> "+other.bounds);
-        if(other.gameObject.tag == "Floor") movementSpeed = 0;
+        // if(other.gameObject.tag == "Floor" && !inGround) movementSpeed = 0;
 
-        Debug.Log("Name : "+other.gameObject.name);
-        Debug.Log("Tag : "+other.gameObject.tag);
+        // Debug.Log("Name : "+other.gameObject.name);
+        // Debug.Log("Tag : "+other.gameObject.tag);
         if(other.gameObject.tag == "Fruit" || other.gameObject.tag == "Meat"){
+
+            audioSource.clip = MainGameController.instance.fruitGainAudio;
+            audioSource.Play();
+
             if(other.gameObject.name.Contains("apple")){
                 MainGameController.instance.CollectCollectable(Collectables.Apple);
             }
@@ -132,11 +147,14 @@ public class PlayerController : MonoBehaviour
             }
             Destroy(other.gameObject);
         }
+
+        if(other.gameObject.tag == "Animal"){
+            Debug.Log("Animal near me");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         movementSpeed = walkSpeed;
-        Debug.Log(other.gameObject.name);
     }
 }
 

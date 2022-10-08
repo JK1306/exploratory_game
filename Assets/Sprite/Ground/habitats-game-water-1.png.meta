@@ -1,55 +1,55 @@
 fileFormatVersion: 2
-guid: b97714deecabbbc4e963c34cafb33b08
+guid: 66cfd33e6641c4649977f1c1c860a3a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3437967385679323668
-    second: habitats_game-water_0
+      213: -6590897462509129451
+    second: habitats-game-water-1_0
   - first:
-      213: 8096248637327196145
-    second: habitats_game-water_1
+      213: -6121318172716348282
+    second: habitats-game-water-1_1
   - first:
-      213: -2196877936986584808
-    second: habitats_game-water_2
+      213: -7912718893360791245
+    second: habitats-game-water-1_2
   - first:
-      213: -1014596142338492814
-    second: habitats_game-water_3
+      213: -6607171767874881313
+    second: habitats-game-water-1_3
   - first:
-      213: -6343674827552950023
-    second: habitats_game-water_4
+      213: -9037398701785687425
+    second: habitats-game-water-1_4
   - first:
-      213: -4446729241108512949
-    second: habitats_game-water_5
+      213: 615686035867960923
+    second: habitats-game-water-1_5
   - first:
-      213: 3432106158886665180
-    second: habitats_game-water_6
+      213: -8162745495770599761
+    second: habitats-game-water-1_6
   - first:
-      213: -3330966906152942544
-    second: habitats_game-water_7
+      213: 1807135802751369550
+    second: habitats-game-water-1_7
   - first:
-      213: 6684185318334338013
-    second: habitats_game-water_8
+      213: 2122405752095817576
+    second: habitats-game-water-1_8
   - first:
-      213: 7096885320185203707
-    second: habitats_game-water_9
+      213: -9129467505073498783
+    second: habitats-game-water-1_9
   - first:
-      213: -3119865135700053052
-    second: habitats_game-water_10
+      213: -6230783949699910035
+    second: habitats-game-water-1_10
   - first:
-      213: -3433341052755417619
-    second: habitats_game-water_11
+      213: -6245370319709804571
+    second: habitats-game-water-1_11
   - first:
-      213: 1004262453597178528
-    second: habitats_game-water_12
+      213: 9008272761530434277
+    second: habitats-game-water-1_12
   - first:
-      213: 5070829663356396121
-    second: habitats_game-water_13
+      213: -1562548014412030084
+    second: habitats-game-water-1_13
   - first:
-      213: -5178999100298530603
-    second: habitats_game-water_14
+      213: 5742187620326204409
+    second: habitats-game-water-1_14
   - first:
-      213: -8904789549904276788
-    second: habitats_game-water_15
+      213: 3415989049192550223
+    second: habitats-game-water-1_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -175,7 +175,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: habitats_game-water_0
+      name: habitats-game-water-1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -189,14 +189,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4126bc44f1d16bf20800000000000000
-      internalID: 3437967385679323668
+      spriteID: 511be1c8dad6884a0800000000000000
+      internalID: -6590897462509129451
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_1
+      name: habitats-game-water-1_1
       rect:
         serializedVersion: 2
         x: 512
@@ -210,14 +210,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ffb0296d37ab5070800000000000000
-      internalID: 8096248637327196145
+      spriteID: 68c4916dd85bc0ba0800000000000000
+      internalID: -6121318172716348282
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_2
+      name: habitats-game-water-1_2
       rect:
         serializedVersion: 2
         x: 1024
@@ -231,14 +231,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8198507e72f1381e0800000000000000
-      internalID: -2196877936986584808
+      spriteID: 33145b10710603290800000000000000
+      internalID: -7912718893360791245
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_3
+      name: habitats-game-water-1_3
       rect:
         serializedVersion: 2
         x: 1536
@@ -252,14 +252,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 276be612f2e6be1f0800000000000000
-      internalID: -1014596142338492814
+      spriteID: fd8f3dd884c9e44a0800000000000000
+      internalID: -6607171767874881313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_4
+      name: habitats-game-water-1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -273,14 +273,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f87e15ca5db6f7a0800000000000000
-      internalID: -6343674827552950023
+      spriteID: f7adc7e43c5b49280800000000000000
+      internalID: -9037398701785687425
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_5
+      name: habitats-game-water-1_5
       rect:
         serializedVersion: 2
         x: 512
@@ -294,14 +294,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4f7263a05b0a42c0800000000000000
-      internalID: -4446729241108512949
+      spriteID: b560415003b5b8800800000000000000
+      internalID: 615686035867960923
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_6
+      name: habitats-game-water-1_6
       rect:
         serializedVersion: 2
         x: 1024
@@ -315,14 +315,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdbbedf0e5a41af20800000000000000
-      internalID: 3432106158886665180
+      spriteID: fae6cac383a18be80800000000000000
+      internalID: -8162745495770599761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_7
+      name: habitats-game-water-1_7
       rect:
         serializedVersion: 2
         x: 1536
@@ -336,14 +336,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0340c204f3706c1d0800000000000000
-      internalID: -3330966906152942544
+      spriteID: e41c2ef107c341910800000000000000
+      internalID: 1807135802751369550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_8
+      name: habitats-game-water-1_8
       rect:
         serializedVersion: 2
         x: 0
@@ -357,14 +357,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd31338f12ff2cc50800000000000000
-      internalID: 6684185318334338013
+      spriteID: 86fbaea59cc447d10800000000000000
+      internalID: 2122405752095817576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_9
+      name: habitats-game-water-1_9
       rect:
         serializedVersion: 2
         x: 512
@@ -378,14 +378,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bfbc25909933d7260800000000000000
-      internalID: 7096885320185203707
+      spriteID: 1655f939cad9d4180800000000000000
+      internalID: -9129467505073498783
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_10
+      name: habitats-game-water-1_10
       rect:
         serializedVersion: 2
         x: 1024
@@ -399,14 +399,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c3f877503304b4d0800000000000000
-      internalID: -3119865135700053052
+      spriteID: d667ee5820fc789a0800000000000000
+      internalID: -6230783949699910035
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_11
+      name: habitats-game-water-1_11
       rect:
         serializedVersion: 2
         x: 1536
@@ -420,14 +420,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de56fbdc0825a50d0800000000000000
-      internalID: -3433341052755417619
+      spriteID: 5e7edea98ccf359a0800000000000000
+      internalID: -6245370319709804571
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_12
+      name: habitats-game-water-1_12
       rect:
         serializedVersion: 2
         x: 0
@@ -441,14 +441,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0aa0ce7716bdfed00800000000000000
-      internalID: 1004262453597178528
+      spriteID: 5e249d64950d30d70800000000000000
+      internalID: 9008272761530434277
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_13
+      name: habitats-game-water-1_13
       rect:
         serializedVersion: 2
         x: 512
@@ -462,14 +462,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9522fd066b43f5640800000000000000
-      internalID: 5070829663356396121
+      spriteID: c7f9a701cd6b05ae0800000000000000
+      internalID: -1562548014412030084
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_14
+      name: habitats-game-water-1_14
       rect:
         serializedVersion: 2
         x: 1024
@@ -483,14 +483,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d073aef1cf7028b0800000000000000
-      internalID: -5178999100298530603
+      spriteID: 9f3603f973950bf40800000000000000
+      internalID: 5742187620326204409
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: habitats_game-water_15
+      name: habitats-game-water-1_15
       rect:
         serializedVersion: 2
         x: 1536
@@ -504,8 +504,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc2585e7515db6480800000000000000
-      internalID: -8904789549904276788
+      spriteID: f4f0fb901f7086f20800000000000000
+      internalID: 3415989049192550223
       vertices: []
       indices: 
       edges: []
