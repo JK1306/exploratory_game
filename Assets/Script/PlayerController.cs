@@ -6,13 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed, jumpForce;
     public static PlayerController instance;
+    public bool inGround;
+    public LayerMask animalLayer;
     float walkSpeed;
     Animator playerAnimator;
     Transform playerPosition;
     Rigidbody2D rb;
     AudioSource audioSource;
     bool canJump; 
-    public bool inGround;
+    Collider2D[] animalsNearby;
+
 
     void Start()
     {
@@ -28,6 +31,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         InputHandler();
+        animalsNearby = Physics2D.OverlapCircleAll(transform.position, 3f, animalLayer);
+        if(animalsNearby.Length > 0){
+            foreach (Collider2D animal in animalsNearby) {
+                MainGameController.instance.animalName = animal.gameObject.name;
+            }
+
+            Debug.Log("detected animal");
+            MainGameController.instance.animalNearby = true;
+        }else{
+            MainGameController.instance.animalNearby = false;
+        }
+    }
+
+    private void FixedUpdate() {
     }
 
     private void InputHandler()
@@ -123,34 +140,42 @@ public class PlayerController : MonoBehaviour
 
             audioSource.clip = MainGameController.instance.fruitGainAudio;
             audioSource.Play();
+            Debug.Log("It came here");
 
             if(other.gameObject.name.Contains("apple")){
+                Debug.Log("Its apple");
                 MainGameController.instance.CollectCollectable(Collectables.Apple);
             }
             if(other.gameObject.name.Contains("bannana")){
+                Debug.Log("Its bannana");
                 MainGameController.instance.CollectCollectable(Collectables.Bannana);
             }
             if(other.gameObject.name.Contains("berry")){
+                Debug.Log("Its berry");
                 MainGameController.instance.CollectCollectable(Collectables.Berry);
             }
             if(other.gameObject.name.Contains("grape")){
+                Debug.Log("Its grape");
                 MainGameController.instance.CollectCollectable(Collectables.Grape);
             }
             if(other.gameObject.name.Contains("meat")){
+                Debug.Log("Its meat");
                 MainGameController.instance.CollectCollectable(Collectables.Meat);
             }
             if(other.gameObject.name.Contains("orange")){
+                Debug.Log("Its orange");
                 MainGameController.instance.CollectCollectable(Collectables.Orange);
             }
             if(other.gameObject.name.Contains("pineapple")){
+                Debug.Log("Its pineapple");
                 MainGameController.instance.CollectCollectable(Collectables.Pineapple);
             }
             Destroy(other.gameObject);
         }
 
-        if(other.gameObject.tag == "Animal"){
-            Debug.Log("Animal near me");
-        }
+        // if(other.gameObject.tag == "Animal"){
+        //     Debug.Log("Animal near me");
+        // }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
