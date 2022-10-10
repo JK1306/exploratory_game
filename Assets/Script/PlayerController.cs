@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     public bool inGround;
     public LayerMask animalLayer;
+    public ParticleSystem dustParticle;
     float walkSpeed;
     Animator playerAnimator;
     Transform playerPosition;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         if(animalsNearby.Length > 0){
             foreach (Collider2D animal in animalsNearby) {
                 MainGameController.instance.animalName = animal.gameObject.name;
+                MainGameController.instance.nearByAnimal = animal.gameObject;
             }
 
             Debug.Log("detected animal");
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour
                     );
                 }
 
+                dustParticle.Play();
                 gameObject.transform.position = playerPosition.position;
                 gameObject.transform.localScale = playerPosition.localScale;
                 break;
@@ -126,8 +129,18 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Blocker"){
+        if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Blocker" || other.gameObject.tag.ToLower().Contains("floor")){
             canJump = true;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other) {
+        if(other.gameObject.tag == "MovingFloor"){
+            transform.position = new Vector3(
+                other.transform.position.x,
+                transform.position.y,
+                transform.position.z
+            );
         }
     }
 

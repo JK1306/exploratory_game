@@ -10,11 +10,12 @@ TagManager:
   - Blocker
   - Hazard
   - Animal
+  - MovingFloor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Animal

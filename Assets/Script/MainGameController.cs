@@ -15,11 +15,15 @@ public class MainGameController : MonoBehaviour
     public Button inventoryButton,
                     feedBtn;
     public Button cancelBtn;
-    public AudioClip fruitGainAudio;
+    public AudioClip fruitGainAudio,
+                    elephantAudio,
+                    monkeyAudio,
+                    snakeAudio;
     public bool animalNearby;
     public int successPoint,
                 negativePoint;
     public string animalName;
+    public GameObject nearByAnimal;
     GameObject spawnObject;
     string foodToFeed;
     int score;
@@ -96,11 +100,25 @@ public class MainGameController : MonoBehaviour
 
     void ManageScore(){
         if((animalName == "Snake" && foodToFeed.ToLower() == "meat") || (animalName == "Elephant" && foodToFeed.ToLower() != "meat") || (animalName == "Monkey" && foodToFeed.ToLower() != "meat")){
+            PlayAnimalSound();
             score += successPoint;
         }else{
             score -= negativePoint;
         }
         scoreBoard.text = "Score : "+score.ToString();
+    }
+
+    void PlayAnimalSound(){
+        if(animalName == "Snake"){
+            nearByAnimal.GetComponent<AudioSource>().clip = snakeAudio;
+        }
+        if(animalName == "Elephant"){
+            nearByAnimal.GetComponent<AudioSource>().clip = elephantAudio;
+        }
+        if(animalName == "Monkey"){
+            nearByAnimal.GetComponent<AudioSource>().clip = monkeyAudio;
+        }
+        nearByAnimal.GetComponent<AudioSource>().Play();
     }
 
     void CloseInventory(){
