@@ -23,6 +23,7 @@ public class MainGameController : MonoBehaviour
     public int successPoint,
                 negativePoint;
     public string animalName;
+    public AnimalController nearbyAnimalContorller;
     public GameObject nearByAnimal;
     GameObject spawnObject;
     string foodToFeed;
@@ -109,16 +110,17 @@ public class MainGameController : MonoBehaviour
     }
 
     void PlayAnimalSound(){
-        if(animalName == "Snake"){
-            nearByAnimal.GetComponent<AudioSource>().clip = snakeAudio;
-        }
-        if(animalName == "Elephant"){
-            nearByAnimal.GetComponent<AudioSource>().clip = elephantAudio;
-        }
-        if(animalName == "Monkey"){
-            nearByAnimal.GetComponent<AudioSource>().clip = monkeyAudio;
-        }
-        nearByAnimal.GetComponent<AudioSource>().Play();
+        nearbyAnimalContorller.PlayAnimalSFX();
+        // if(animalName == "Snake"){
+        //     nearByAnimal.GetComponent<AudioSource>().clip = snakeAudio;
+        // }
+        // if(animalName == "Elephant"){
+        //     nearByAnimal.GetComponent<AudioSource>().clip = elephantAudio;
+        // }
+        // if(animalName == "Monkey"){
+        //     nearByAnimal.GetComponent<AudioSource>().clip = monkeyAudio;
+        // }
+        // nearByAnimal.GetComponent<AudioSource>().Play();
     }
 
     void CloseInventory(){

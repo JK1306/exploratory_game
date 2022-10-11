@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float movementSpeed, jumpForce;
+    public float interactableDistance, hearableDistance;
     public static PlayerController instance;
     public bool inGround;
     public LayerMask animalLayer;
     public ParticleSystem dustParticle;
+    public AudioClip jumpStart,
+                    jumpEnd,
+                    runClip;
     float walkSpeed;
     Animator playerAnimator;
     Transform playerPosition;
@@ -32,21 +36,48 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         InputHandler();
-        animalsNearby = Physics2D.OverlapCircleAll(transform.position, 3f, animalLayer);
+
+        // check animal nearby
+        DetectNearbyAnimal();
+    }
+
+    void DetectNearbyAnimal(){
+        animalsNearby = Physics2D.OverlapCircleAll(transform.position, interactableDistance, animalLayer);
         if(animalsNearby.Length > 0){
             foreach (Collider2D animal in animalsNearby) {
-                MainGameController.instance.animalName = animal.gameObject.name;
-                MainGameController.instance.nearByAnimal = animal.gameObject;
+                if(animal.gameObject.GetComponent<AnimalController>()){
+                    MainGameController.instance.nearbyAnimalContorller = animal.gameObject.GetComponent<AnimalController>();
+                    MainGameController.instance.animalNearby = true;
+                    // MainGameController.instance.animalName = animal.gameObject.name;
+                    // MainGameController.instance.nearByAnimal = animal.gameObject;
+                    break;
+                }
             }
-
-            Debug.Log("detected animal");
-            MainGameController.instance.animalNearby = true;
         }else{
             MainGameController.instance.animalNearby = false;
+            HearAnimalSound();
         }
     }
 
-    private void FixedUpdate() {
+    void HearAnimalSound(){
+        animalsNearby = Physics2D.OverlapCircleAll(transform.position, hearableDistance, animalLayer);
+        Debug.Log("Hearable distance : "+animalsNearby.Length.ToString());
+        if(animalsNearby.Length > 0){
+            foreach (Collider2D animal in animalsNearby)
+            {
+                if(animal.gameObject.GetComponent<AnimalController>()){
+                    animal.gameObject.GetComponent<AnimalController>().PlayAnimalHearableSFX();
+                    break;
+                }
+            }
+        }
+    }
+
+    void PlayRunSFX(){
+        if(!audioSource.isPlaying && canJump){
+            audioSource.clip = runClip;
+            audioSource.Play();
+        }
     }
 
     private void InputHandler()
@@ -56,6 +87,8 @@ public class PlayerController : MonoBehaviour
             if(canJump){
                 PlayerAnimationHandler(PlayerMovement.Jump);
                 PlayerMovementHandler(PlayerMovement.Jump);
+                audioSource.clip = jumpStart;
+                audioSource.Play();
                 return;
             }
         }
@@ -63,6 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             PlayerAnimationHandler(PlayerMovement.Run);
             PlayerMovementHandler(PlayerMovement.Run);
+            PlayRunSFX();
         }
         if (!Input.anyKey && canJump)
         {
@@ -116,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
         switch(playerMovement){
             case PlayerMovement.Run:
-                playerAnimator.Play("player_run");
+                playerAnimator.Play("player_run_1");
                 break;
             case PlayerMovement.Jump:
                 playerAnimator.Play("player_jump");
@@ -130,6 +164,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Blocker" || other.gameObject.tag.ToLower().Contains("floor")){
+            if(!canJump){
+                audioSource.clip = jumpEnd;
+                audioSource.Play();
+            }
+
             canJump = true;
         }
     }
@@ -194,6 +233,16 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other) {
         movementSpeed = walkSpeed;
     }
+
+#region GIZMOS_LOGIC
+    
+    // void OnDrawGizmosSelected(){
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawSphere(transform.position, hearableDistance);
+    // }
+
+#endregion
+
 }
 
 public enum PlayerMovement{
