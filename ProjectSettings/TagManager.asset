@@ -11,6 +11,7 @@ TagManager:
   - Hazard
   - Animal
   - MovingFloor
+  - GateOpener
   layers:
   - Default
   - TransparentFX

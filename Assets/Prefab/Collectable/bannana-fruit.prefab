@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8370295856526424834}
   - component: {fileID: 1276998811418976150}
   - component: {fileID: 5418474805108457735}
+  - component: {fileID: 3093285631100982351}
   m_Layer: 0
   m_Name: bannana-fruit
   m_TagString: Fruit
@@ -109,3 +110,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7, y: 1.38}
   m_EdgeRadius: 0
+--- !u!114 &3093285631100982351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887824895863780312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72fd8a2e93fb3c243a644d0f8649e46f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eatableType: 0

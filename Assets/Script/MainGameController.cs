@@ -11,7 +11,7 @@ public class MainGameController : MonoBehaviour
     public GameObject inventoryPanel,
                     inventoryObjects,
                     inventory;
-    public Text scoreBoard;
+    // public Text scoreBoard;
     public Button inventoryButton,
                     feedBtn;
     public Button cancelBtn;
@@ -25,8 +25,14 @@ public class MainGameController : MonoBehaviour
     public string animalName;
     public AnimalController nearbyAnimalContorller;
     public GameObject nearByAnimal;
+    public GameObject monkeyScore,
+                        bisonScore,
+                        lionessScore;
     GameObject spawnObject;
-    string foodToFeed;
+    GameObject foodToFeed;
+    int monkeyScoreVal,
+        bisonScoreVal,
+        lionessScoreVal;
     int score;
 
     void Start()
@@ -35,7 +41,7 @@ public class MainGameController : MonoBehaviour
         successPoint = 5;
         negativePoint = 3;
         score = 0;
-        scoreBoard.text = "Score : "+score.ToString();
+        // scoreBoard.text = "Score : "+score.ToString();
     }
 
     private void OnEnable() {
@@ -57,27 +63,28 @@ public class MainGameController : MonoBehaviour
             return;
         }
 
-        foodToFeed = inventory.GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().gameObject.name;
-        
-        if(foodToFeed.ToLower().Contains("apple")){
+        foodToFeed = inventory.GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().gameObject;
+        Debug.Log(foodToFeed.name);
+        Debug.Log(foodToFeed.GetComponent<CollectableController>());
+        if(foodToFeed.name.ToLower().Contains("apple")){
             FeedFruit(Collectables.Apple);
         }
-        if(foodToFeed.ToLower().Contains("bannana")){
+        if(foodToFeed.name.ToLower().Contains("bannana")){
             FeedFruit(Collectables.Bannana);
         }
-        if(foodToFeed.ToLower().Contains("berry")){
+        if(foodToFeed.name.ToLower().Contains("berry")){
             FeedFruit(Collectables.Berry);
         }
-        if(foodToFeed.ToLower().Contains("grape")){
+        if(foodToFeed.name.ToLower().Contains("grape")){
             FeedFruit(Collectables.Grape);
         }
-        if(foodToFeed.ToLower().Contains("meat")){
+        if(foodToFeed.name.ToLower().Contains("meat")){
             FeedFruit(Collectables.Meat);
         }
-        if(foodToFeed.ToLower().Contains("orange")){
+        if(foodToFeed.name.ToLower().Contains("orange")){
             FeedFruit(Collectables.Orange);
         }
-        if(foodToFeed.ToLower().Contains("pineapple")){
+        if(foodToFeed.name.ToLower().Contains("pineapple")){
             FeedFruit(Collectables.Pineapple);
         }
 
@@ -99,28 +106,19 @@ public class MainGameController : MonoBehaviour
         }
     }
 
-    void ManageScore(){
-        if((animalName == "Snake" && foodToFeed.ToLower() == "meat") || (animalName == "Elephant" && foodToFeed.ToLower() != "meat") || (animalName == "Monkey" && foodToFeed.ToLower() != "meat")){
-            PlayAnimalSound();
-            score += successPoint;
-        }else{
-            score -= negativePoint;
-        }
-        scoreBoard.text = "Score : "+score.ToString();
-    }
+    void ManageScore(EatableType collectableCategory){
+        bool condition1 = (nearbyAnimalContorller.animalCategory == AnimalType.Carnivores && collectableCategory == EatableType.Meat);
+        bool condition2 = (nearbyAnimalContorller.animalCategory == AnimalType.Herbivores && (collectableCategory == EatableType.Grass || collectableCategory == EatableType.Fruit));
+        bool condition3 = (nearbyAnimalContorller.animalCategory == AnimalType.Omnivores && (collectableCategory == EatableType.Fruit || collectableCategory == EatableType.Meat));
 
-    void PlayAnimalSound(){
-        nearbyAnimalContorller.PlayAnimalSFX();
-        // if(animalName == "Snake"){
-        //     nearByAnimal.GetComponent<AudioSource>().clip = snakeAudio;
-        // }
-        // if(animalName == "Elephant"){
-        //     nearByAnimal.GetComponent<AudioSource>().clip = elephantAudio;
-        // }
-        // if(animalName == "Monkey"){
-        //     nearByAnimal.GetComponent<AudioSource>().clip = monkeyAudio;
-        // }
-        // nearByAnimal.GetComponent<AudioSource>().Play();
+        if(condition1 || condition2 || condition3){
+            nearbyAnimalContorller.PlayAnimalSFX();
+            nearbyAnimalContorller.AddScore();
+            // score += successPoint;
+        }else{
+            // score -= negativePoint;
+        }
+        // scoreBoard.text = "Score : "+score.ToString();
     }
 
     void CloseInventory(){
@@ -144,7 +142,8 @@ public class MainGameController : MonoBehaviour
         foreach (var item in collectables){
             if(item.collectableType == collectable){
                 item.collectionCount--;
-                ManageScore();
+                // foodToFeed = 
+                ManageScore(item.collectableCategory);
                 break;
             }
         }
@@ -155,6 +154,7 @@ public class MainGameController : MonoBehaviour
 public class CollectableObject{
     public Sprite collectable;
     public Collectables collectableType;
+    public EatableType collectableCategory;
     public int collectionCount;
 }
 
@@ -166,9 +166,4 @@ public enum Collectables{
     Meat,
     Orange,
     Pineapple
-}
-
-public enum CollectableType{
-    Fruit,
-    Meat
 }

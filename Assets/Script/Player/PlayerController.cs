@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
     Transform playerPosition;
     Rigidbody2D rb;
     AudioSource audioSource;
-    bool canJump; 
+    bool canJump,
+        blockInput;
     Collider2D[] animalsNearby;
 
 
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
         walkSpeed = movementSpeed;
         canJump = true;
         instance = this;
+        blockInput = false;
     }
 
     void Update()
@@ -46,8 +48,11 @@ public class PlayerController : MonoBehaviour
         if(animalsNearby.Length > 0){
             foreach (Collider2D animal in animalsNearby) {
                 if(animal.gameObject.GetComponent<AnimalController>()){
-                    MainGameController.instance.nearbyAnimalContorller = animal.gameObject.GetComponent<AnimalController>();
-                    MainGameController.instance.animalNearby = true;
+                    Debug.Log("Animal Controller is set : "+animal.gameObject.name);
+                    if(!MainGameController.instance.animalNearby){
+                        MainGameController.instance.nearbyAnimalContorller = animal.gameObject.GetComponent<AnimalController>();
+                        MainGameController.instance.animalNearby = true;
+                    }
                     // MainGameController.instance.animalName = animal.gameObject.name;
                     // MainGameController.instance.nearByAnimal = animal.gameObject;
                     break;
@@ -61,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     void HearAnimalSound(){
         animalsNearby = Physics2D.OverlapCircleAll(transform.position, hearableDistance, animalLayer);
-        Debug.Log("Hearable distance : "+animalsNearby.Length.ToString());
+        // Debug.Log("Hearable distance : "+animalsNearby.Length.ToString());
         if(animalsNearby.Length > 0){
             foreach (Collider2D animal in animalsNearby)
             {
@@ -82,22 +87,25 @@ public class PlayerController : MonoBehaviour
 
     private void InputHandler()
     {
-        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)))
-        {
-            if(canJump){
-                PlayerAnimationHandler(PlayerMovement.Jump);
-                PlayerMovementHandler(PlayerMovement.Jump);
-                audioSource.clip = jumpStart;
-                audioSource.Play();
-                return;
+        if(!blockInput) {
+            if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)))
+            {
+                if(canJump){
+                    PlayerAnimationHandler(PlayerMovement.Jump);
+                    PlayerMovementHandler(PlayerMovement.Jump);
+                    audioSource.clip = jumpStart;
+                    audioSource.Play();
+                    return;
+                }
+            }
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                PlayerAnimationHandler(PlayerMovement.Run);
+                PlayerMovementHandler(PlayerMovement.Run);
+                PlayRunSFX();
             }
         }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-        {
-            PlayerAnimationHandler(PlayerMovement.Run);
-            PlayerMovementHandler(PlayerMovement.Run);
-            PlayRunSFX();
-        }
+
         if (!Input.anyKey && canJump)
         {
             playerAnimator.Play("player_idle");
@@ -163,13 +171,23 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Blocker" || other.gameObject.tag.ToLower().Contains("floor")){
+        Debug.Log("came here");
+        Debug.Log(other.gameObject.tag);
+        Debug.Log(other.gameObject.name);
+        Debug.Log(other.transform.parent.gameObject.name);
+
+        if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Blocker" || other.gameObject.tag.ToLower().Contains("floor") || other.gameObject.tag == "GateOpener" ){
             if(!canJump){
                 audioSource.clip = jumpEnd;
                 audioSource.Play();
             }
 
             canJump = true;
+        }
+
+        if(other.transform.parent.GetComponent<WayBlockerHandler>()){
+            // blockInput = true;
+            other.transform.parent.GetComponent<WayBlockerHandler>().StartOpening();
         }
     }
 
