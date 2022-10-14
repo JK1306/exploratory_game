@@ -21,18 +21,28 @@ public class MovableBlock : MonoBehaviour
     {
         if(axis == MovableAxis.Horizontal){
             if(moveRight){
-                movablePlatform.position = (movablePlatform.position + (Vector3.right * movementSpeed));
+                movablePlatform.position = (movablePlatform.position + ((Vector3.right * movementSpeed) * Time.deltaTime));
                 if(Vector3.Distance(movablePlatform.position, rightPoint.position) < 1f){
                     moveRight = false;
                 }
             }else{
-                movablePlatform.position = (movablePlatform.position + (Vector3.left * movementSpeed));
+                movablePlatform.position = (movablePlatform.position + ((Vector3.left * movementSpeed) * Time.deltaTime));
                 if(Vector3.Distance(movablePlatform.position, leftPoint.position) < 1f){
                     moveRight = true;
                 }
             }
         }else{
-
+            if(moveUp){
+                movablePlatform.position = (movablePlatform.position + ((Vector3.up * movementSpeed) * Time.deltaTime));
+                if(Vector3.Distance(movablePlatform.position, rightPoint.position) < 1f){
+                    moveUp = false;
+                }
+            }else{
+                movablePlatform.position = (movablePlatform.position + ((Vector3.down * movementSpeed) * Time.deltaTime));
+                if(Vector3.Distance(movablePlatform.position, leftPoint.position) < 1f){
+                    moveUp = true;
+                }
+            }
         }
     }
 }

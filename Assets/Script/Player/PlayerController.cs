@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Animal Controller is set : "+animal.gameObject.name);
                     if(!MainGameController.instance.animalNearby){
                         MainGameController.instance.nearbyAnimalContorller = animal.gameObject.GetComponent<AnimalController>();
+                        MainGameController.instance.nearbyAnimalContorller.PlayAnimalSFX();
                         MainGameController.instance.animalNearby = true;
                     }
                     // MainGameController.instance.animalName = animal.gameObject.name;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }else{
-            MainGameController.instance.animalNearby = false;
+            // MainGameController.instance.animalNearby = false;
             HearAnimalSound();
         }
     }

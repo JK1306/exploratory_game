@@ -7,15 +7,15 @@ public class AnimalController : MonoBehaviour
 {
     public AnimalType animalCategory;
     public string animalName;
-    public AudioClip animalSFX;
+    public AudioClip animalSFX,
+                    disappearSFX;
     public ParticleSystem disappearEffect;
-    public GameObject scoreBoardList;
-    public Color color;
     AudioSource audioSource;
+    ParticleSystem spawnedParticle;
+
     [SerializeField]
     int sfxPlayInterval;
     float sfxPlayed;
-    int score;
 
     void Start()
     {
@@ -29,6 +29,15 @@ public class AnimalController : MonoBehaviour
         audioSource.Play();
     }
 
+    public void AnimalFeeded(){
+        GetComponent<SpriteRenderer>().enabled = false;
+        spawnedParticle = Instantiate(disappearEffect, gameObject.transform);
+        audioSource.clip = disappearSFX;
+        audioSource.Play();
+        spawnedParticle.Play();
+        StartCoroutine(nameof(StartDestroying));
+    }
+
     public void PlayAnimalHearableSFX(){
         if(audioSource.isPlaying || (sfxPlayInterval > sfxPlayed)) { return; }
 
@@ -38,19 +47,15 @@ public class AnimalController : MonoBehaviour
         sfxPlayed = 0f;
     }
 
-    public void AddScore(){
-        // scoreBoardList.transform.GetChild(score).gameObject.GetComponent<Image>().color = color;
-        score++;
+    IEnumerator StartDestroying(){
+        while(spawnedParticle.isPlaying){
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 
     void Update()
     {
         sfxPlayed += Time.deltaTime;
     }
-}
-
-public enum AnimalType{
-    Carnivores,
-    Herbivores,
-    Omnivores
 }

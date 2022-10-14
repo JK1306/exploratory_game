@@ -6,7 +6,7 @@ using System;
 public class WayBlockerHandler : MonoBehaviour
 {
     public GameObject blocker,
-                        blockOpener;
+                    blockOpener;
     public Camera camera_;
     public PlayerController player;
 
@@ -18,30 +18,35 @@ public class WayBlockerHandler : MonoBehaviour
     [Header("Block")]
     public Transform startPoint;
     public Transform endPoint;
+    public AudioClip woodScrapSound,
+                    leafMovementSFX;
     public float movementSpeed,
                 blockerMovementSpeed;
     float standingPosition;
     [SerializeField]
     bool canMoveDown,
             gateOpened,
-            closeProgram;
+            closeProgram,
+            audioPlayed;
     Vector3 cameraPosition,
             blockerPosition,
             tmpPosition;
     float time;
     [SerializeField]
     float camerMovementDuration;
+    AudioSource audioSource;
 
     private void Start() {
         time = 0;
         gateOpened = false;
         closeProgram = false;
+        audioPlayed = false;
         // duration = 9f;
+        audioSource = GetComponent<AudioSource>();
         cameraPosition = camera_.transform.position;
 
         blockerPosition = blocker.transform.position;
         blockerPosition.z = camera_.transform.position.z;
-
     }
 
     public void StartOpening(){
@@ -57,8 +62,17 @@ public class WayBlockerHandler : MonoBehaviour
         }
 
         if(Math.Round((endingPoint.position - logPoint.position).sqrMagnitude, 2) > 0.07f){
+            if(!audioPlayed) {
+                audioSource.clip = woodScrapSound;
+                PlayAudio();
+                audioPlayed=true;
+            }
             OpenerMovement();
         }else{
+            if(audioPlayed){
+                StopAudio();
+                audioPlayed=false;
+            }
             CameraHandler.OBJ_followingCamera.B_canfollow = false;
             CameraMovement();
         }
@@ -67,9 +81,22 @@ public class WayBlockerHandler : MonoBehaviour
     void CameraMovement(){
         if(time > camerMovementDuration){
             if(gateOpened) {
+
+                if(audioPlayed){
+                    StopAudio();
+                    audioPlayed=false;
+                }
+
                 CameraHandler.OBJ_followingCamera.B_canfollow = true;
                 closeProgram = true;
-            }else{ BlockerMovement(); }
+            }else{
+                if(!audioPlayed){
+                    audioSource.clip = leafMovementSFX;
+                    PlayAudio();
+                    audioPlayed=true;
+                }
+                BlockerMovement();
+            }
             return;
         }
         camera_.transform.position = Vector3.Lerp(cameraPosition, blockerPosition, time/camerMovementDuration);
@@ -98,6 +125,14 @@ public class WayBlockerHandler : MonoBehaviour
             blocker.transform.position.y + (blockerMovementSpeed * Time.deltaTime),
             blocker.transform.position.z
         );
+    }
+
+    void PlayAudio(){
+        audioSource.Play();
+    }
+
+    void StopAudio(){
+        audioSource.Stop();
     }
 
 }
