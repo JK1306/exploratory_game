@@ -8,17 +8,20 @@ public class PlayerController : MonoBehaviour
     public float interactableDistance, hearableDistance;
     public static PlayerController instance;
     public bool inGround;
+    public float runSFXElapsedTime;
     public LayerMask animalLayer;
     public ParticleSystem dustParticle;
     public AudioClip jumpStart,
                     jumpEnd,
                     runClip;
-    float walkSpeed;
+    float walkSpeed,
+            elapsedTime;
     Animator playerAnimator;
     Transform playerPosition;
     Rigidbody2D rb;
     AudioSource audioSource;
     bool canJump,
+        // runSFXElapsedTime,
         blockInput;
     Collider2D[] animalsNearby;
 
@@ -41,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
         // check animal nearby
         DetectNearbyAnimal();
+
+        elapsedTime += Time.deltaTime;
     }
 
     void DetectNearbyAnimal(){
@@ -52,6 +57,9 @@ public class PlayerController : MonoBehaviour
                     if(!MainGameController.instance.animalNearby){
                         MainGameController.instance.nearbyAnimalContorller = animal.gameObject.GetComponent<AnimalController>();
                         MainGameController.instance.nearbyAnimalContorller.PlayAnimalSFX();
+                        MainGameController.instance.inventoryButton.GetComponent<Animator>().enabled = true;
+                        Debug.Log("Animator Enabled : "+MainGameController.instance.inventoryButton.GetComponent<Animator>().enabled);
+                        MainGameController.instance.inventoryButton.GetComponent<Animator>().Play("highlight_animation");
                         MainGameController.instance.animalNearby = true;
                     }
                     // MainGameController.instance.animalName = animal.gameObject.name;
@@ -60,7 +68,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }else{
-            // MainGameController.instance.animalNearby = false;
+            MainGameController.instance.animalNearby = false;
+            MainGameController.instance.inventoryButton.GetComponent<Animator>().enabled = false;
             HearAnimalSound();
         }
     }
@@ -80,9 +89,10 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayRunSFX(){
-        if(!audioSource.isPlaying && canJump){
+        if(!audioSource.isPlaying && canJump && elapsedTime > runSFXElapsedTime){
             audioSource.clip = runClip;
             audioSource.Play();
+            elapsedTime = 0;
         }
     }
 
@@ -172,10 +182,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log("came here");
-        Debug.Log(other.gameObject.tag);
-        Debug.Log(other.gameObject.name);
-        Debug.Log(other.transform.parent.gameObject.name);
 
         if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Blocker" || other.gameObject.tag.ToLower().Contains("floor") || other.gameObject.tag == "GateOpener" ){
             if(!canJump){
@@ -205,40 +211,37 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         // if(other.gameObject.tag == "Floor" && !inGround) movementSpeed = 0;
 
-        // Debug.Log("Name : "+other.gameObject.name);
-        // Debug.Log("Tag : "+other.gameObject.tag);
         if(other.gameObject.tag == "Fruit" || other.gameObject.tag == "Meat"){
 
             audioSource.clip = MainGameController.instance.fruitGainAudio;
             audioSource.Play();
-            Debug.Log("It came here");
-
+            
             if(other.gameObject.name.Contains("apple")){
-                Debug.Log("Its apple");
+                // Debug.Log("Its apple");
                 MainGameController.instance.CollectCollectable(Collectables.Apple);
             }
             if(other.gameObject.name.Contains("bannana")){
-                Debug.Log("Its bannana");
+                // Debug.Log("Its bannana");
                 MainGameController.instance.CollectCollectable(Collectables.Bannana);
             }
             if(other.gameObject.name.Contains("berry")){
-                Debug.Log("Its berry");
+                // Debug.Log("Its berry");
                 MainGameController.instance.CollectCollectable(Collectables.Berry);
             }
             if(other.gameObject.name.Contains("grape")){
-                Debug.Log("Its grape");
+                // Debug.Log("Its grape");
                 MainGameController.instance.CollectCollectable(Collectables.Grape);
             }
             if(other.gameObject.name.Contains("meat")){
-                Debug.Log("Its meat");
+                // Debug.Log("Its meat");
                 MainGameController.instance.CollectCollectable(Collectables.Meat);
             }
             if(other.gameObject.name.Contains("orange")){
-                Debug.Log("Its orange");
+                // Debug.Log("Its orange");
                 MainGameController.instance.CollectCollectable(Collectables.Orange);
             }
             if(other.gameObject.name.Contains("pineapple")){
-                Debug.Log("Its pineapple");
+                // Debug.Log("Its pineapple");
                 MainGameController.instance.CollectCollectable(Collectables.Pineapple);
             }
             Destroy(other.gameObject);

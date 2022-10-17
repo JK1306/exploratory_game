@@ -159,7 +159,7 @@ public class MainGameController : MonoBehaviour
         }
     }
 
-        public void THI_pointFxOn(bool plus)
+    public void THI_pointFxOn(bool plus)
     {
         if (plus)
         {
