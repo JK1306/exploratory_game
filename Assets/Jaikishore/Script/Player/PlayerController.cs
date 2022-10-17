@@ -8,22 +8,28 @@ public class PlayerController : MonoBehaviour
     public float interactableDistance, hearableDistance;
     public static PlayerController instance;
     public bool inGround;
-    public float runSFXElapsedTime;
+    public float runSFXElapsedTime,
+                camerMovementDuration;
     public LayerMask animalLayer;
-    public ParticleSystem dustParticle;
+    public ParticleSystem dustParticle,
+                            deathParticle;
     public AudioClip jumpStart,
                     jumpEnd,
                     runClip;
+    public Camera camera_;
     float walkSpeed,
             elapsedTime;
     Animator playerAnimator;
-    Transform playerPosition;
+    Transform playerPosition,
+                cameraPosition;
+    Vector3 playerInitialPosition;
     Rigidbody2D rb;
     AudioSource audioSource;
     bool canJump,
-        // runSFXElapsedTime,
+        playerDead,
         blockInput;
     Collider2D[] animalsNearby;
+    ParticleSystem spawnedParticle;
 
 
     void Start()
@@ -32,10 +38,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
 
+        playerInitialPosition = transform.position;
         walkSpeed = movementSpeed;
         canJump = true;
         instance = this;
         blockInput = false;
+        playerDead = false;
+        // time = 0;
     }
 
     void Update()
@@ -45,7 +54,20 @@ public class PlayerController : MonoBehaviour
         // check animal nearby
         DetectNearbyAnimal();
 
+        SpawnPlayer();
         elapsedTime += Time.deltaTime;
+    }
+
+    void SpawnPlayer(){
+        if(playerDead){
+            // if(spawnedParticle.isPlaying){ return; }
+
+            // transform.position = playerInitialPosition.position;
+            GetComponent<SpriteRenderer>().enabled = true;
+            // StartCoroutine(nameof(MoveCamera));
+            playerDead = false;
+            
+        }
     }
 
     void DetectNearbyAnimal(){
@@ -57,9 +79,9 @@ public class PlayerController : MonoBehaviour
                     if(!MainGameController.instance.animalNearby){
                         MainGameController.instance.nearbyAnimalContorller = animal.gameObject.GetComponent<AnimalController>();
                         MainGameController.instance.nearbyAnimalContorller.PlayAnimalSFX();
-                        MainGameController.instance.inventoryButton.GetComponent<Animator>().enabled = true;
-                        Debug.Log("Animator Enabled : "+MainGameController.instance.inventoryButton.GetComponent<Animator>().enabled);
-                        MainGameController.instance.inventoryButton.GetComponent<Animator>().Play("highlight_animation");
+                        MainGameController.instance.inventoryButton.transform.parent.GetComponent<Animator>().enabled = true;
+                        // Debug.Log("Animator Enabled : "+MainGameController.instance.inventoryButton.GetComponent<Animator>().enabled);
+                        MainGameController.instance.inventoryButton.transform.parent.GetComponent<Animator>().Play("highlight_animation");
                         MainGameController.instance.animalNearby = true;
                     }
                     // MainGameController.instance.animalName = animal.gameObject.name;
@@ -69,7 +91,7 @@ public class PlayerController : MonoBehaviour
             }
         }else{
             MainGameController.instance.animalNearby = false;
-            MainGameController.instance.inventoryButton.GetComponent<Animator>().enabled = false;
+            MainGameController.instance.inventoryButton.transform.parent.GetComponent<Animator>().enabled = false;
             HearAnimalSound();
         }
     }
@@ -181,6 +203,14 @@ public class PlayerController : MonoBehaviour
         movementSpeed = walkSpeed;
     }
 
+    public void LockInput(){
+        blockInput = true;
+    }
+
+    public void UnLockInput(){
+        blockInput = false;
+    }
+
     private void OnCollisionEnter2D(Collision2D other) {
 
         if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Blocker" || other.gameObject.tag.ToLower().Contains("floor") || other.gameObject.tag == "GateOpener" ){
@@ -199,12 +229,18 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionStay2D(Collision2D other) {
-        if(other.gameObject.tag == "MovingFloor"){
+        if(other.gameObject.tag == "MovingFloor" && !playerDead){
             transform.position = new Vector3(
                 other.transform.position.x,
                 transform.position.y,
                 transform.position.z
             );
+        }
+        if(other.gameObject.tag == "Hazard"){
+            playerDead = true;
+            CameraHandler.OBJ_followingCamera.B_canfollow = false;
+            MainGameController.instance.PlayerDeath(transform, playerInitialPosition, camerMovementDuration);
+            transform.position = playerInitialPosition;
         }
     }
 

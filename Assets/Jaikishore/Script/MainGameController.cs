@@ -28,16 +28,15 @@ public class MainGameController : MonoBehaviour
     public string animalName;
     public AnimalController nearbyAnimalContorller;
     public GameObject nearByAnimal;
-    public GameObject monkeyScore,
-                        bisonScore,
-                        lionessScore;
-
+    public ParticleSystem playerDeathParticle;
+    // Vector3 startPosition, 
+    //         endPosition;
+    // float
+    public Camera camera_;
     GameObject spawnObject;
     GameObject foodToFeed;
-    int monkeyScoreVal,
-        bisonScoreVal,
-        lionessScoreVal;
-
+    ParticleSystem spawnedParticle;
+    float elapsedTime;
 
     public bool B_production;
 
@@ -99,6 +98,7 @@ public class MainGameController : MonoBehaviour
     public AudioClip[] ACA__questionClips;
     public AudioClip[] ACA_optionClips;
     public AudioClip[] ACA_instructionClips;
+
     private void Awake()
     {
 
@@ -143,6 +143,11 @@ public class MainGameController : MonoBehaviour
         feedBtn.onClick.RemoveListener(PerformFeedAnimal);
     }
 
+    private void Update() {
+        elapsedTime += Time.deltaTime;
+    }
+
+#region TEMPLATE_INTEGRATION
     void THI_gameData()
     {
         // THI_getPreviewData();
@@ -410,7 +415,9 @@ public class MainGameController : MonoBehaviour
         Time.timeScale = 1;
         G_instructionPage.SetActive(false);
     }
+#endregion TEMPLATE_INTEGRATION
 
+#region GAME_LOGICS
     void PerformFeedAnimal(){
 
         if(!animalNearby){
@@ -466,7 +473,8 @@ public class MainGameController : MonoBehaviour
                 if(animal.animalController.animalName == nearbyAnimalContorller.animalName){
                     animal.score++;
                     animal.scoreBoardDisplay.transform.GetChild(0).gameObject.SetActive(true);
-                    animal.scoreBoardDisplay.transform.GetChild(1).GetComponent<Text>().text = "x"+animal.score.ToString();
+                    animal.scoreBoardDisplay.transform.GetChild(1).GetComponent<Text>().text = animal.score.ToString()+"/"+animal.animalCount.ToString();
+                    // animal.scoreBoardDisplay.transform.GetChild(1).GetComponent<Text>().text = "x"+animal.score.ToString();
                 }
             }
             STR_currentSelectedAnswer = foodToFeed.gameObject.name;
@@ -478,6 +486,7 @@ public class MainGameController : MonoBehaviour
     }
 
     void ViewInventory(){
+        inventoryButton.transform.parent.GetComponent<Animator>().enabled = false;
         inventoryPanel.SetActive(true);
         foreach (var item in collectables)
         {
@@ -508,6 +517,38 @@ public class MainGameController : MonoBehaviour
             }
         }
     }
+
+    public void PlayerDeath(Transform spawnPosition, Vector3 endPoint, float camerMovementDuration){
+        Debug.Log("came to PlayerDeath");
+        object[] param = new object[3]{spawnPosition, endPoint, camerMovementDuration};
+
+        spawnedParticle = Instantiate(playerDeathParticle, spawnPosition.position, Quaternion.identity);
+        spawnedParticle.Play();
+        StartCoroutine(nameof(WaitUntilParticleComplete), param);
+    }
+
+    IEnumerator WaitUntilParticleComplete(object[] param){
+        while(spawnedParticle.isPlaying){
+            yield return null;
+        }
+        StartCoroutine(nameof(MoveCamera), param);
+    }
+
+    public IEnumerator MoveCamera(object[] param){
+        // Debug.Log("In MoveCamera function");
+        Debug.Log("Elapsed Time : "+elapsedTime);
+        Debug.Log("Elapsed Time : "+(float)param[2]);
+        elapsedTime = 0;
+        while(elapsedTime < (float)param[2]){
+            camera_.transform.position = Vector3.Lerp(((Transform)param[0]).position, ((Vector3)param[1]), elapsedTime/(float)param[2]);
+            yield return null;
+        }
+        CameraHandler.OBJ_followingCamera.B_canfollow = true;
+        // Debug.Log("--- > It came here");
+    }
+
+#endregion GAME_LOGICS
+
 }
 
 [System.Serializable]
@@ -523,6 +564,7 @@ public class Animal{
     public AnimalController animalController;
     public GameObject scoreBoardDisplay;
     public int score;
+    public int animalCount;
 }
 
 public enum Collectables{
