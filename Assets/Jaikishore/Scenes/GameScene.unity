@@ -4098,7 +4098,7 @@ MonoBehaviour:
   hearableDistance: 15
   inGround: 0
   runSFXElapsedTime: 0.5
-  camerMovementDuration: 0
+  camerMovementDuration: 5
   animalLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -23870,7 +23870,7 @@ MonoBehaviour:
   nearbyAnimalContorller: {fileID: 0}
   nearByAnimal: {fileID: 0}
   playerDeathParticle: {fileID: 198247871303120836, guid: e473029e4c70ad543a6879b82a732f4f, type: 3}
-  camera_: {fileID: 0}
+  camera_: {fileID: 519420031}
   B_production: 1
   G_Demo: {fileID: 0}
   G_coverPage: {fileID: 489644222}
