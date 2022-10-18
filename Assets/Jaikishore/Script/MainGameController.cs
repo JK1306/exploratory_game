@@ -29,10 +29,9 @@ public class MainGameController : MonoBehaviour
     public AnimalController nearbyAnimalContorller;
     public GameObject nearByAnimal;
     public ParticleSystem playerDeathParticle;
-    // Vector3 startPosition, 
-    //         endPosition;
-    // float
     public Camera camera_;
+    public GameObject lifeLineObject;
+    public int playerLifeLine;
     GameObject spawnObject;
     GameObject foodToFeed;
     ParticleSystem spawnedParticle;
@@ -125,7 +124,7 @@ public class MainGameController : MonoBehaviour
         STRL_answers = new List<string>();
         STRL_options = new List<string>();
         Invoke("THI_gameData", 1f);
-
+        lifeLineObject.transform.GetChild(0).GetComponent<Text>().text = "x"+playerLifeLine;
         // I_currentQuestionCount = -1;
 
         instance = this;
@@ -518,11 +517,19 @@ public class MainGameController : MonoBehaviour
         }
     }
 
-    public void PlayerDeath(Transform spawnPosition, Vector3 endPoint, float camerMovementDuration){
-        Debug.Log("came to PlayerDeath");
-        object[] param = new object[3]{spawnPosition, endPoint, camerMovementDuration};
+    public void PlayerDeath(Vector3 spawnPosition, Vector3 endPoint, float camerMovementDuration){
+        playerLifeLine--;
+        lifeLineObject.transform.GetChild(0).GetComponent<Text>().text = "x"+playerLifeLine;
 
-        spawnedParticle = Instantiate(playerDeathParticle, spawnPosition.position, Quaternion.identity);
+        camera_.GetComponent<AudioSource>().clip = PlayerController.instance.deathClip;
+        camera_.GetComponent<AudioSource>().Play();
+        object[] param = new object[3]{
+            new Vector3(spawnPosition.x, spawnPosition.y, camera_.transform.position.z), 
+            new Vector3(endPoint.x, endPoint.y, camera_.transform.position.z), 
+            camerMovementDuration
+        };
+
+        spawnedParticle = Instantiate(playerDeathParticle, spawnPosition, Quaternion.identity);
         spawnedParticle.Play();
         StartCoroutine(nameof(WaitUntilParticleComplete), param);
     }
@@ -535,16 +542,13 @@ public class MainGameController : MonoBehaviour
     }
 
     public IEnumerator MoveCamera(object[] param){
-        // Debug.Log("In MoveCamera function");
-        Debug.Log("Elapsed Time : "+elapsedTime);
-        Debug.Log("Elapsed Time : "+(float)param[2]);
         elapsedTime = 0;
         while(elapsedTime < (float)param[2]){
-            camera_.transform.position = Vector3.Lerp(((Transform)param[0]).position, ((Vector3)param[1]), elapsedTime/(float)param[2]);
+            camera_.transform.position = Vector3.Lerp((Vector3)param[0], ((Vector3)param[1]), elapsedTime/(float)param[2]);
             yield return null;
         }
         CameraHandler.OBJ_followingCamera.B_canfollow = true;
-        // Debug.Log("--- > It came here");
+        PlayerController.instance.SpawnPlayer();
     }
 
 #endregion GAME_LOGICS

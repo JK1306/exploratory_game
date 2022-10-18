@@ -74,6 +74,7 @@ public class WayBlockerHandler : MonoBehaviour
                 audioPlayed=false;
             }
             CameraHandler.OBJ_followingCamera.B_canfollow = false;
+            PlayerController.instance.LockInput();
             CameraMovement();
         }
     }
@@ -88,6 +89,7 @@ public class WayBlockerHandler : MonoBehaviour
                 }
 
                 CameraHandler.OBJ_followingCamera.B_canfollow = true;
+                PlayerController.instance.UnLockInput();
                 closeProgram = true;
             }else{
                 if(!audioPlayed){

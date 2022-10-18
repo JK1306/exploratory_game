@@ -15,22 +15,23 @@ public class PlayerController : MonoBehaviour
                             deathParticle;
     public AudioClip jumpStart,
                     jumpEnd,
-                    runClip;
+                    runClip,
+                    deathClip;
     public Camera camera_;
     float walkSpeed,
             elapsedTime;
     Animator playerAnimator;
     Transform playerPosition,
                 cameraPosition;
-    Vector3 playerInitialPosition;
+    Vector3 playerInitialPosition,
+            deathPosition,
+            respawnPosition;
     Rigidbody2D rb;
     AudioSource audioSource;
     bool canJump,
         playerDead,
         blockInput;
     Collider2D[] animalsNearby;
-    ParticleSystem spawnedParticle;
-
 
     void Start()
     {
@@ -54,16 +55,14 @@ public class PlayerController : MonoBehaviour
         // check animal nearby
         DetectNearbyAnimal();
 
-        SpawnPlayer();
         elapsedTime += Time.deltaTime;
     }
 
-    void SpawnPlayer(){
+    public void SpawnPlayer(){
         if(playerDead){
-            // if(spawnedParticle.isPlaying){ return; }
-
-            // transform.position = playerInitialPosition.position;
             GetComponent<SpriteRenderer>().enabled = true;
+            // transform.position = playerInitialPosition.position;
+            // GetComponent<SpriteRenderer>().enabled = true;
             // StartCoroutine(nameof(MoveCamera));
             playerDead = false;
             
@@ -75,7 +74,6 @@ public class PlayerController : MonoBehaviour
         if(animalsNearby.Length > 0){
             foreach (Collider2D animal in animalsNearby) {
                 if(animal.gameObject.GetComponent<AnimalController>()){
-                    Debug.Log("Animal Controller is set : "+animal.gameObject.name);
                     if(!MainGameController.instance.animalNearby){
                         MainGameController.instance.nearbyAnimalContorller = animal.gameObject.GetComponent<AnimalController>();
                         MainGameController.instance.nearbyAnimalContorller.PlayAnimalSFX();
@@ -226,6 +224,21 @@ public class PlayerController : MonoBehaviour
             // blockInput = true;
             other.transform.parent.GetComponent<WayBlockerHandler>().StartOpening();
         }
+
+        if(other.gameObject.tag == "Hazard"){
+            foreach(ContactPoint2D contact in other.contacts){
+                // Debug.Log(contact.collider.gameObject.name+"--> "+contact.otherCollider.gameObject.name);
+                // Debug.Log("Player dead");
+                deathPosition = transform.position;
+                CameraHandler.OBJ_followingCamera.B_canfollow = false;
+                playerDead = true;
+                transform.position = respawnPosition;
+                MainGameController.instance.PlayerDeath(deathPosition, respawnPosition, camerMovementDuration);
+                GetComponent<SpriteRenderer>().enabled = false;
+                break;
+            }
+        }
+
     }
 
     private void OnCollisionStay2D(Collision2D other) {
@@ -235,12 +248,6 @@ public class PlayerController : MonoBehaviour
                 transform.position.y,
                 transform.position.z
             );
-        }
-        if(other.gameObject.tag == "Hazard"){
-            playerDead = true;
-            CameraHandler.OBJ_followingCamera.B_canfollow = false;
-            MainGameController.instance.PlayerDeath(transform, playerInitialPosition, camerMovementDuration);
-            transform.position = playerInitialPosition;
         }
     }
 
@@ -283,9 +290,10 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        // if(other.gameObject.tag == "Animal"){
-        //     Debug.Log("Animal near me");
-        // }
+        if(other.gameObject.tag == "Respawn"){
+            respawnPosition = other.transform.position;
+            Destroy(other.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
