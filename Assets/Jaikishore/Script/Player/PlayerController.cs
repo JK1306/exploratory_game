@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip jumpStart,
                     jumpEnd,
                     runClip,
-                    deathClip;
+                    deathClip,
+                    playerRespawnClip;
     public Camera camera_;
     float walkSpeed,
             elapsedTime;
@@ -61,11 +62,9 @@ public class PlayerController : MonoBehaviour
     public void SpawnPlayer(){
         if(playerDead){
             GetComponent<SpriteRenderer>().enabled = true;
-            // transform.position = playerInitialPosition.position;
-            // GetComponent<SpriteRenderer>().enabled = true;
-            // StartCoroutine(nameof(MoveCamera));
+            audioSource.clip = playerRespawnClip;
+            audioSource.Play();
             playerDead = false;
-            
         }
     }
 
@@ -242,6 +241,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionStay2D(Collision2D other) {
+        Debug.Log(other.gameObject.tag);
         if(other.gameObject.tag == "MovingFloor" && !playerDead){
             transform.position = new Vector3(
                 other.transform.position.x,

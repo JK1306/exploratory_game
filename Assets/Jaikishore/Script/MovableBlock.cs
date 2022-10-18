@@ -6,6 +6,7 @@ public class MovableBlock : MonoBehaviour
 {
     public float movementSpeed;
     public MovableAxis axis;
+    public bool printDebug;
     public Transform movablePlatform,
                     rightPoint,
                     leftPoint;

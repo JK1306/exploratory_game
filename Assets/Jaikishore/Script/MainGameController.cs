@@ -520,6 +520,7 @@ public class MainGameController : MonoBehaviour
     public void PlayerDeath(Vector3 spawnPosition, Vector3 endPoint, float camerMovementDuration){
         playerLifeLine--;
         lifeLineObject.transform.GetChild(0).GetComponent<Text>().text = "x"+playerLifeLine;
+        lifeLineObject.GetComponent<Animator>().Play("heart-burst");
 
         camera_.GetComponent<AudioSource>().clip = PlayerController.instance.deathClip;
         camera_.GetComponent<AudioSource>().Play();
