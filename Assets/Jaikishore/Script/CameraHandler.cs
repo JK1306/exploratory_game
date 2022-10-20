@@ -17,6 +17,7 @@ public class CameraHandler : MonoBehaviour
     {
         if (B_canfollow)
         {
+            if(!GameObject.FindGameObjectWithTag("Player")) { return; }
             if(B_Follow_X)
             {
                 T_TargetPlayer = GameObject.FindGameObjectWithTag("Player").transform;

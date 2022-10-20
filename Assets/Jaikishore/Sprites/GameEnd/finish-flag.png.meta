@@ -1,37 +1,25 @@
 fileFormatVersion: 2
-guid: 34189e61e9cf6cc40ba6449d81f82dd9
+guid: 122454befdcc9e8439718e9534a0e6fd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3700552558160287068
-    second: Habitats-game_lioness-3 copy_0
+      213: -3650041639780146145
+    second: finish-flag_0
   - first:
-      213: -3877164518936218244
-    second: Habitats-game_lioness-3 copy_1
+      213: 1445061895691718420
+    second: finish-flag_1
   - first:
-      213: 6638702763121816211
-    second: Habitats-game_lioness-3 copy_2
+      213: -5615935937627526758
+    second: finish-flag_2
   - first:
-      213: 6086885317367875544
-    second: Habitats-game_lioness-3 copy_3
+      213: -7187772522926012541
+    second: finish-flag_3
   - first:
-      213: 3441382899483399871
-    second: Habitats-game_lioness-3 copy_4
+      213: -4000528082403564126
+    second: finish-flag_4
   - first:
-      213: 4174111073549025609
-    second: Habitats-game_lioness-3 copy_5
-  - first:
-      213: -4959868084502238157
-    second: Habitats-game_lioness-3 copy_6
-  - first:
-      213: -4185345185058641512
-    second: Habitats-game_lioness-3 copy_7
-  - first:
-      213: -9050662358461090666
-    second: Habitats-game_lioness-3 copy_8
-  - first:
-      213: 418884472839604006
-    second: Habitats-game_lioness-3 copy_9
+      213: -5327712421316813724
+    second: finish-flag_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -157,13 +145,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_0
+      name: finish-flag_0
       rect:
         serializedVersion: 2
-        x: 66
-        y: 1366
-        width: 746
-        height: 613
+        x: 0
+        y: 1365.3333
+        width: 682.6667
+        height: 682.6667
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +159,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c559ecdf1f00b5330800000000000000
-      internalID: 3700552558160287068
+      spriteID: f142585a772785dc0800000000000000
+      internalID: -3650041639780146145
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_1
+      name: finish-flag_1
       rect:
         serializedVersion: 2
-        x: 916
-        y: 1468
-        width: 253
-        height: 409
+        x: 682
+        y: 1365.3333
+        width: 682.6667
+        height: 682.6667
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,20 +180,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c75fe01896b813ac0800000000000000
-      internalID: -3877164518936218244
+      spriteID: 41f482b4324ed0410800000000000000
+      internalID: 1445061895691718420
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_2
+      name: finish-flag_2
       rect:
         serializedVersion: 2
-        x: 1336
-        y: 1472
-        width: 225
-        height: 389
+        x: 1364
+        y: 1365.3333
+        width: 682.6667
+        height: 682.6667
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,20 +201,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 392b74d5df8612c50800000000000000
-      internalID: 6638702763121816211
+      spriteID: a996c5ce4003012b0800000000000000
+      internalID: -5615935937627526758
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_3
+      name: finish-flag_3
       rect:
         serializedVersion: 2
-        x: 1736
-        y: 1474
-        width: 242
-        height: 405
+        x: 0
+        y: 683.3333
+        width: 682.6667
+        height: 682.6667
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,20 +222,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d7c04a42f5f87450800000000000000
-      internalID: 6086885317367875544
+      spriteID: 3878eac09f6ef3c90800000000000000
+      internalID: -7187772522926012541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_4
+      name: finish-flag_4
       rect:
         serializedVersion: 2
-        x: 224
-        y: 848
-        width: 240
-        height: 383
+        x: 682
+        y: 683.3333
+        width: 682.6667
+        height: 682.6667
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,20 +243,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb6dfcb838f32cf20800000000000000
-      internalID: 3441382899483399871
+      spriteID: 2a56c5e97e44b78c0800000000000000
+      internalID: -4000528082403564126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_5
+      name: finish-flag_5
       rect:
         serializedVersion: 2
-        x: 681
-        y: 920
-        width: 399
-        height: 353
+        x: 1364
+        y: 683.3333
+        width: 682.6667
+        height: 682.6667
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -276,92 +264,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9410aefe7eb6de930800000000000000
-      internalID: 4174111073549025609
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_6
-      rect:
-        serializedVersion: 2
-        x: 1228
-        y: 902
-        width: 342
-        height: 354
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 33c627271420b2bb0800000000000000
-      internalID: -4959868084502238157
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_7
-      rect:
-        serializedVersion: 2
-        x: 1688
-        y: 865
-        width: 333
-        height: 367
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8992036aabaaae5c0800000000000000
-      internalID: -4185345185058641512
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_8
-      rect:
-        serializedVersion: 2
-        x: 178
-        y: 288
-        width: 244
-        height: 383
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6947de59986956280800000000000000
-      internalID: -9050662358461090666
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Habitats-game_lioness-3 copy_9
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 321
-        width: 267
-        height: 359
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 627088d653d20d500800000000000000
-      internalID: 418884472839604006
+      spriteID: 46c99fdb7c92016b0800000000000000
+      internalID: -5327712421316813724
       vertices: []
       indices: 
       edges: []

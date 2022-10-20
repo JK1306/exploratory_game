@@ -32,6 +32,7 @@ public class MainGameController : MonoBehaviour
     public Camera camera_;
     public GameObject lifeLineObject;
     public int playerLifeLine;
+    public PlayMode playMode;
     GameObject spawnObject;
     GameObject foodToFeed;
     ParticleSystem spawnedParticle;
@@ -100,7 +101,6 @@ public class MainGameController : MonoBehaviour
 
     private void Awake()
     {
-
         if (B_production)
         {
             URL = "https://dlearners.in/template_and_games/Game_template_api-s/game_template_1.php"; // PRODUCTION FETCH DATA
@@ -110,7 +110,6 @@ public class MainGameController : MonoBehaviour
         {
             URL = "http://20.120.84.12/Test/template_and_games/Game_template_api-s/game_template_1.php"; // UAT FETCH DATA
             SendValueURL = "http://20.120.84.12/Test/template_and_games/Game_template_api-s/save_child_questions.php"; // UAT SEND DATA
-
         }
     }
 
@@ -586,4 +585,9 @@ public enum AnimalType{
     Carnivores,
     Herbivores,
     Omnivores
+}
+
+public enum PlayMode{
+    DemoGame,
+    MainGame
 }

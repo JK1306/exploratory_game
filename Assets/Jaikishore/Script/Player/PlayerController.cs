@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     public bool inGround;
     public float runSFXElapsedTime,
                 camerMovementDuration;
-    public LayerMask animalLayer;
+    public LayerMask animalLayer,
+                    gameEndLayer;
     public ParticleSystem dustParticle,
                             deathParticle;
     public AudioClip jumpStart,
@@ -31,8 +32,11 @@ public class PlayerController : MonoBehaviour
     AudioSource audioSource;
     bool canJump,
         playerDead,
-        blockInput;
-    Collider2D[] animalsNearby;
+        blockInput,
+        reachedEnd,
+        playerJumped;
+    Collider2D[] animalsNearby,
+                gameEndColliders;
 
     void Start()
     {
@@ -42,11 +46,12 @@ public class PlayerController : MonoBehaviour
 
         playerInitialPosition = transform.position;
         walkSpeed = movementSpeed;
-        canJump = true;
         instance = this;
+        canJump = true;
         blockInput = false;
         playerDead = false;
-        // time = 0;
+        reachedEnd = false;
+        playerJumped = false;
     }
 
     void Update()
@@ -55,6 +60,8 @@ public class PlayerController : MonoBehaviour
 
         // check animal nearby
         DetectNearbyAnimal();
+        
+        if(!reachedEnd) DetectGameEnd();
 
         elapsedTime += Time.deltaTime;
     }
@@ -65,6 +72,17 @@ public class PlayerController : MonoBehaviour
             audioSource.clip = playerRespawnClip;
             audioSource.Play();
             playerDead = false;
+        }
+    }
+
+    void DetectGameEnd(){
+        gameEndColliders = Physics2D.OverlapCircleAll(transform.position, interactableDistance, gameEndLayer);
+        if(gameEndColliders.Length > 0){
+            foreach(Collider2D gameEnd in gameEndColliders){
+                // gameEnd.GetComponent<Animator>().Play("flagFly");
+                gameEnd.GetComponent<Animator>().Play("flagHoist");
+                reachedEnd = true;
+            }
         }
     }
 
@@ -107,20 +125,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayRunSFX(){
-        if(!audioSource.isPlaying && canJump && elapsedTime > runSFXElapsedTime){
-            audioSource.clip = runClip;
-            audioSource.Play();
-            elapsedTime = 0;
-        }
-    }
-
     private void InputHandler()
     {
         if(!blockInput) {
-            if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)))
+            if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.X)))
             {
                 if(canJump){
+                    playerJumped = true;
                     PlayerAnimationHandler(PlayerMovement.Jump);
                     PlayerMovementHandler(PlayerMovement.Jump);
                     audioSource.clip = jumpStart;
@@ -128,17 +139,32 @@ public class PlayerController : MonoBehaviour
                     return;
                 }
             }
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
             {
-                PlayerAnimationHandler(PlayerMovement.Run);
                 PlayerMovementHandler(PlayerMovement.Run);
+                if(!inGround){
+                    canJump = false;
+                    PlayerAnimationHandler(PlayerMovement.Fall);
+                    return;
+                }else{
+                    canJump = true;
+                    PlayerAnimationHandler(PlayerMovement.Run);
+                }
                 PlayRunSFX();
             }
         }
 
-        if (!Input.anyKey && canJump)
+        if (!Input.anyKey && canJump && inGround)
         {
             playerAnimator.Play("player_idle");
+        }
+    }
+
+    void PlayRunSFX(){
+        if(!audioSource.isPlaying && canJump && elapsedTime > runSFXElapsedTime){
+            audioSource.clip = runClip;
+            audioSource.Play();
+            elapsedTime = 0;
         }
     }
 
@@ -184,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAnimationHandler(PlayerMovement playerMovement){
 
-        if (!canJump) return;
+        if (playerJumped && playerMovement != PlayerMovement.Jump) return;
 
         switch(playerMovement){
             case PlayerMovement.Run:
@@ -192,6 +218,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerMovement.Jump:
                 playerAnimator.Play("player_jump");
+                break;
+            case PlayerMovement.Fall:
+                playerAnimator.Play("player_fall");
                 break;
         }
     }
@@ -215,7 +244,7 @@ public class PlayerController : MonoBehaviour
                 audioSource.clip = jumpEnd;
                 audioSource.Play();
             }
-
+            playerJumped = false;
             canJump = true;
         }
 
@@ -238,18 +267,29 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-    }
-
-    private void OnCollisionStay2D(Collision2D other) {
-        Debug.Log(other.gameObject.tag);
-        if(other.gameObject.tag == "MovingFloor" && !playerDead){
-            transform.position = new Vector3(
-                other.transform.position.x,
-                transform.position.y,
-                transform.position.z
-            );
+        if(other.gameObject.tag == "MovingFloor"){
+            other.transform.parent.GetComponent<MovableBlock>().ApplyFloatEffect();
+            transform.parent = other.transform;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        if(other.gameObject.tag == "MovingFloor"){
+            // other.transform.parent.GetComponent<MovableBlock>().ResetFloatEffect();
+            transform.parent = null;
+        }
+    }
+
+    // private void OnCollisionStay2D(Collision2D other) {
+    //     Debug.Log(other.gameObject.tag);
+    //     if(other.gameObject.tag == "MovingFloor" && !playerDead){
+    //         transform.position = new Vector3(
+    //             other.transform.position.x,
+    //             transform.position.y,
+    //             transform.position.z
+    //         );
+    //     }
+    // }
 
     private void OnTriggerEnter2D(Collider2D other) {
         // if(other.gameObject.tag == "Floor" && !inGround) movementSpeed = 0;
@@ -315,5 +355,6 @@ public enum PlayerMovement{
     Idle,
     Run,
     Jump,
-    Crouch
+    Crouch,
+    Fall
 }

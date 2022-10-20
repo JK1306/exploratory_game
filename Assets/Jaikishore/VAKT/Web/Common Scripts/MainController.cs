@@ -66,7 +66,8 @@ public class MainController : MonoBehaviour
         WEB = true;
         //  Debug.Log("WEB");
 #endif
-
+        MOBILE = false;
+        WEB = true;
 
         //if (MOBILE)
         //{
@@ -81,15 +82,15 @@ public class MainController : MonoBehaviour
 
 
            // testing
-           STR_childID = "336";
-           mode = "live";
-        //    mode = "preview";
+          // STR_childID = "336";
+           // mode = "live";
+           mode = "preview";
 
             // Live ID's
             //  STR_GameID = "413"; //train sorting
             //  STR_GameID = "382"; //fish sorting
             //   STR_GameID = "404"; //fruit ninja
-            //   STR_GameID = "322"; //Domino arrange
+              // STR_GameID = "322"; //Domino arrange
             //  STR_GameID = "378"; //robot runner
             //  STR_GameID = "348"; //fish nemo
             //  STR_GameID = "364"; //Cake Baking ,robot runner
