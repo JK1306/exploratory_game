@@ -33,6 +33,7 @@ public class MainGameController : MonoBehaviour
     public GameObject lifeLineObject;
     public int playerLifeLine;
     public PlayMode playMode;
+    public GameObject gameOver;
     GameObject spawnObject;
     GameObject foodToFeed;
     ParticleSystem spawnedParticle;
@@ -143,6 +144,12 @@ public class MainGameController : MonoBehaviour
 
     private void Update() {
         elapsedTime += Time.deltaTime;
+
+        // if(playMode == PlayMode.MainGame && !CameraHandler.OBJ_followingCamera.B_canfollow){
+        //     CameraHandler.OBJ_followingCamera.B_canfollow = true;
+        // }else if(playMode == PlayMode.DemoGame && CameraHandler.OBJ_followingCamera.B_canfollow){
+        //     CameraHandler.OBJ_followingCamera.B_canfollow = false;
+        // }
     }
 
 #region TEMPLATE_INTEGRATION
@@ -424,27 +431,36 @@ public class MainGameController : MonoBehaviour
         }
 
         foodToFeed = inventory.GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().gameObject;
-        if(foodToFeed.name.ToLower().Contains("apple")){
-            FeedFruit(Collectables.Apple);
+        foreach (var item in collectables)
+        {
+            if(foodToFeed.name.ToLower().Contains(item.collectableType.ToString().ToLower())){
+                item.collectionCount--;
+                ManageScore(item.collectableCategory);
+                break;
+                // FeedFruit(item.collectableType);
+            }
         }
-        if(foodToFeed.name.ToLower().Contains("bannana")){
-            FeedFruit(Collectables.Bannana);
-        }
-        if(foodToFeed.name.ToLower().Contains("berry")){
-            FeedFruit(Collectables.Berry);
-        }
-        if(foodToFeed.name.ToLower().Contains("grape")){
-            FeedFruit(Collectables.Grape);
-        }
-        if(foodToFeed.name.ToLower().Contains("meat")){
-            FeedFruit(Collectables.Meat);
-        }
-        if(foodToFeed.name.ToLower().Contains("orange")){
-            FeedFruit(Collectables.Orange);
-        }
-        if(foodToFeed.name.ToLower().Contains("pineapple")){
-            FeedFruit(Collectables.Pineapple);
-        }
+        // if(foodToFeed.name.ToLower().Contains("apple")){
+        //     FeedFruit(Collectables.Apple);
+        // }
+        // if(foodToFeed.name.ToLower().Contains("bannana")){
+        //     FeedFruit(Collectables.Bannana);
+        // }
+        // if(foodToFeed.name.ToLower().Contains("berry")){
+        //     FeedFruit(Collectables.Berry);
+        // }
+        // if(foodToFeed.name.ToLower().Contains("grape")){
+        //     FeedFruit(Collectables.Grape);
+        // }
+        // if(foodToFeed.name.ToLower().Contains("meat")){
+        //     FeedFruit(Collectables.Meat);
+        // }
+        // if(foodToFeed.name.ToLower().Contains("orange")){
+        //     FeedFruit(Collectables.Orange);
+        // }
+        // if(foodToFeed.name.ToLower().Contains("pineapple")){
+        //     FeedFruit(Collectables.Pineapple);
+        // }
 
         CloseInventory();
     }
@@ -461,8 +477,8 @@ public class MainGameController : MonoBehaviour
 
     void ManageScore(EatableType collectableCategory){
         bool condition1 = (nearbyAnimalContorller.animalCategory == AnimalType.Carnivores && collectableCategory == EatableType.Meat);
-        bool condition2 = (nearbyAnimalContorller.animalCategory == AnimalType.Herbivores && (collectableCategory == EatableType.Grass || collectableCategory == EatableType.Fruit));
-        bool condition3 = (nearbyAnimalContorller.animalCategory == AnimalType.Omnivores && (collectableCategory == EatableType.Fruit || collectableCategory == EatableType.Meat));
+        bool condition2 = (nearbyAnimalContorller.animalCategory == AnimalType.Herbivores && (collectableCategory == EatableType.Grass ));
+        bool condition3 = (nearbyAnimalContorller.animalCategory == AnimalType.Omnivores && (collectableCategory == EatableType.Fruit));
 
         if(condition1 || condition2 || condition3){
             nearbyAnimalContorller.AnimalFeeded();
@@ -506,6 +522,10 @@ public class MainGameController : MonoBehaviour
         }
     }
 
+    public void LevelRestart(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void CollectCollectable(Collectables collectable){
         foreach (var item in collectables)
         {
@@ -518,6 +538,14 @@ public class MainGameController : MonoBehaviour
 
     public void PlayerDeath(Vector3 spawnPosition, Vector3 endPoint, float camerMovementDuration){
         playerLifeLine--;
+
+        // Game Over Scene enabled
+        if(playerLifeLine <= 0){
+            gameOver.SetActive(true);
+            return;
+        }
+
+        lifeLineObject.GetComponent<Animator>().Play("New State");
         lifeLineObject.transform.GetChild(0).GetComponent<Text>().text = "x"+playerLifeLine;
         lifeLineObject.GetComponent<Animator>().Play("heart-burst");
 
@@ -576,6 +604,7 @@ public enum Collectables{
     Bannana,
     Berry,
     Grape,
+    Grass,
     Meat,
     Orange,
     Pineapple

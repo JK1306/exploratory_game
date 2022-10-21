@@ -239,11 +239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8d1e85fd47fbb43a48678554621263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalCategory: 1
+  animalCategory: 2
   animalName: Monkey
   animalSFX: {fileID: 8300000, guid: 95983f869d1872e4aab7c41c0f68559a, type: 3}
   disappearSFX: {fileID: 8300000, guid: ac78beeeffa09964c90000f80c122087, type: 3}
   disappearEffect: {fileID: 198927480420149238, guid: b395d5d6eb4b4b846acc021ee036b744, type: 3}
-  scoreBoardList: {fileID: 0}
-  color: {r: 0.48235297, g: 0.2901961, b: 0.21176472, a: 1}
   sfxPlayInterval: 20

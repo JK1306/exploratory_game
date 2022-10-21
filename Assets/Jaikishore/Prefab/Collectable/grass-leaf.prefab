@@ -122,5 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fd8a2e93fb3c243a644d0f8649e46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatableType: 0
-  collectableName: 0
+  eatableType: 1
+  collectableName: 4
