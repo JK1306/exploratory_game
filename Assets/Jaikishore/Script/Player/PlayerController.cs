@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed, jumpForce;
     public float interactableDistance, hearableDistance;
     public static PlayerController instance;
-    public bool inGround;
+    public bool inGround,
+                // Used by demo script
+                inFloatingFloor;
     public float runSFXElapsedTime,
                 camerMovementDuration;
     public LayerMask animalLayer,
@@ -268,8 +270,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if(other.gameObject.tag == "MovingFloor"){
-            other.transform.parent.GetComponent<MovableBlock>().ApplyFloatEffect();
+            Debug.Log("contact with moving floor");
             transform.parent = other.transform;
+            other.transform.parent.GetComponent<MovableBlock>()?.ApplyFloatEffect();
         }
     }
 
@@ -281,41 +284,12 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        // if(other.gameObject.tag == "Floor" && !inGround) movementSpeed = 0;
 
         if(other.gameObject.tag == "Fruit" || other.gameObject.tag == "Meat"){
 
             audioSource.clip = MainGameController.instance.fruitGainAudio;
             audioSource.Play();
             MainGameController.instance.CollectCollectable(other.GetComponent<CollectableController>().collectableName);
-            // if(other.gameObject.name.Contains("apple")){
-            //     // Debug.Log("Its apple");
-            //     MainGameController.instance.CollectCollectable(Collectables.Apple);
-            // }
-            // if(other.gameObject.name.Contains("bannana")){
-            //     // Debug.Log("Its bannana");
-            //     MainGameController.instance.CollectCollectable(Collectables.Bannana);
-            // }
-            // if(other.gameObject.name.Contains("berry")){
-            //     // Debug.Log("Its berry");
-            //     MainGameController.instance.CollectCollectable(Collectables.Berry);
-            // }
-            // if(other.gameObject.name.Contains("grape")){
-            //     // Debug.Log("Its grape");
-            //     MainGameController.instance.CollectCollectable(Collectables.Grape);
-            // }
-            // if(other.gameObject.name.Contains("meat")){
-            //     // Debug.Log("Its meat");
-            //     MainGameController.instance.CollectCollectable(Collectables.Meat);
-            // }
-            // if(other.gameObject.name.Contains("orange")){
-            //     // Debug.Log("Its orange");
-            //     MainGameController.instance.CollectCollectable(Collectables.Orange);
-            // }
-            // if(other.gameObject.name.Contains("pineapple")){
-            //     // Debug.Log("Its pineapple");
-            //     MainGameController.instance.CollectCollectable(Collectables.Pineapple);
-            // }
             Destroy(other.gameObject);
         }
 

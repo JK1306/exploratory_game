@@ -16,6 +16,7 @@ public class MainGameController : MonoBehaviour
     public GameObject inventoryPanel,
                     inventoryObjects,
                     inventory;
+    public Text inventoryErrorMsgDisplayPanel;
     public Button inventoryButton,
                     feedBtn;
     public Button cancelBtn;
@@ -424,9 +425,15 @@ public class MainGameController : MonoBehaviour
 
 #region GAME_LOGICS
     void PerformFeedAnimal(){
-
+        inventoryErrorMsgDisplayPanel.text = "";
         if(!animalNearby){
             Debug.Log("can't feed food");
+            inventoryErrorMsgDisplayPanel.text = "Go Near to animal to Feed";
+            return;
+        }
+
+        if(!inventory.GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault()){
+            inventoryErrorMsgDisplayPanel.text = "Select Food to Feed";
             return;
         }
 
@@ -480,8 +487,9 @@ public class MainGameController : MonoBehaviour
         bool condition2 = (nearbyAnimalContorller.animalCategory == AnimalType.Herbivores && (collectableCategory == EatableType.Grass ));
         bool condition3 = (nearbyAnimalContorller.animalCategory == AnimalType.Omnivores && (collectableCategory == EatableType.Fruit));
 
+        nearbyAnimalContorller.AnimalFeeded();
+        
         if(condition1 || condition2 || condition3){
-            nearbyAnimalContorller.AnimalFeeded();
             foreach (var animal in animals)
             {
                 if(animal.animalController.animalName == nearbyAnimalContorller.animalName){
@@ -500,6 +508,7 @@ public class MainGameController : MonoBehaviour
     }
 
     void ViewInventory(){
+        if(inventoryPanel.activeSelf) { return; }
         inventoryButton.transform.parent.GetComponent<Animator>().enabled = false;
         inventoryPanel.SetActive(true);
         foreach (var item in collectables)

@@ -12,6 +12,7 @@ TagManager:
   - Animal
   - MovingFloor
   - GateOpener
+  - FloatingFloor
   layers:
   - Default
   - TransparentFX

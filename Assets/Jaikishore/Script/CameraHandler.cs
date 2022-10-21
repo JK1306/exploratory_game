@@ -13,6 +13,16 @@ public class CameraHandler : MonoBehaviour
     {
         OBJ_followingCamera = this;
     }
+
+    // private void OnEnable() {
+    //     Debug.Log(MainGameController.instance.playMode);
+    //     if(MainGameController.instance.playMode == PlayMode.DemoGame){
+    //         B_canfollow = false;
+    //     }else{
+    //         B_canfollow = true;
+    //     }
+    // }
+
     private void LateUpdate()   //player movement in fixed update for smoothness
     {
         if (B_canfollow)
