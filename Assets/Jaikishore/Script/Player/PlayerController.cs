@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
                     PlayerMovementHandler(PlayerMovement.Jump);
                     audioSource.clip = jumpStart;
                     audioSource.Play();
-                    return;
+                    // return;
                 }
             }
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
                 if(!inGround){
                     canJump = false;
                     PlayerAnimationHandler(PlayerMovement.Fall);
-                    return;
+                    // return;
                 }else{
                     canJump = true;
                     PlayerAnimationHandler(PlayerMovement.Run);
