@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     bool canJump,
         playerDead,
         blockInput,
-        reachedEnd,
+        // reachedEnd,
         playerJumped;
     Collider2D[] animalsNearby,
                 gameEndColliders;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         canJump = true;
         blockInput = false;
         playerDead = false;
-        reachedEnd = false;
+        // reachedEnd = false;
         playerJumped = false;
     }
 
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         // check animal nearby
         DetectNearbyAnimal();
         
-        if(!reachedEnd) DetectGameEnd();
+        // if(!reachedEnd) DetectGameEnd();
 
         elapsedTime += Time.deltaTime;
     }
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
             foreach(Collider2D gameEnd in gameEndColliders){
                 // gameEnd.GetComponent<Animator>().Play("flagFly");
                 gameEnd.GetComponent<Animator>().Play("flagHoist");
-                reachedEnd = true;
+                // reachedEnd = true;
             }
         }
     }
@@ -305,10 +305,10 @@ public class PlayerController : MonoBehaviour
 
 #region GIZMOS_LOGIC
     
-    // void OnDrawGizmosSelected(){
-    //     Gizmos.color = Color.yellow;
-    //     Gizmos.DrawSphere(transform.position, hearableDistance);
-    // }
+    void OnDrawGizmosSelected(){
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, hearableDistance);
+    }
 
 #endregion
 
