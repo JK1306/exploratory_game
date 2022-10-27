@@ -6,7 +6,9 @@ public class FootHandler : MonoBehaviour
 {
 
     private void OnTriggerEnter2D(Collider2D other) {
-        PlayerController.instance.inFloatingFloor = true;
+        if(other.gameObject.tag == "FloatingFloor"){
+            PlayerController.instance.inFloatingFloor = true;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other) {

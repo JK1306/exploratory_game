@@ -425,9 +425,12 @@ public class MainGameController : MonoBehaviour
 
 #region GAME_LOGICS
     void PerformFeedAnimal(){
+        DemoController.instance.feedClicked = true;
         inventoryErrorMsgDisplayPanel.text = "";
         if(!animalNearby){
             Debug.Log("can't feed food");
+            DemoController.instance.AnimalFeedReset();
+
             inventoryErrorMsgDisplayPanel.text = "Go Near to animal to Feed";
             return;
         }
@@ -447,27 +450,6 @@ public class MainGameController : MonoBehaviour
                 // FeedFruit(item.collectableType);
             }
         }
-        // if(foodToFeed.name.ToLower().Contains("apple")){
-        //     FeedFruit(Collectables.Apple);
-        // }
-        // if(foodToFeed.name.ToLower().Contains("bannana")){
-        //     FeedFruit(Collectables.Bannana);
-        // }
-        // if(foodToFeed.name.ToLower().Contains("berry")){
-        //     FeedFruit(Collectables.Berry);
-        // }
-        // if(foodToFeed.name.ToLower().Contains("grape")){
-        //     FeedFruit(Collectables.Grape);
-        // }
-        // if(foodToFeed.name.ToLower().Contains("meat")){
-        //     FeedFruit(Collectables.Meat);
-        // }
-        // if(foodToFeed.name.ToLower().Contains("orange")){
-        //     FeedFruit(Collectables.Orange);
-        // }
-        // if(foodToFeed.name.ToLower().Contains("pineapple")){
-        //     FeedFruit(Collectables.Pineapple);
-        // }
 
         CloseInventory();
     }
@@ -509,6 +491,7 @@ public class MainGameController : MonoBehaviour
 
     void ViewInventory(){
         if(inventoryPanel.activeSelf) { return; }
+        DemoController.instance.inventoryOpened = true;
         inventoryButton.transform.parent.GetComponent<Animator>().enabled = false;
         inventoryPanel.SetActive(true);
         foreach (var item in collectables)

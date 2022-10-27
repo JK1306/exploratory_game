@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     public bool inGround,
                 // Used by demo script
-                inFloatingFloor;
+                inFloatingFloor,
+                isPlayingDemo;
     public float runSFXElapsedTime,
                 camerMovementDuration;
     public LayerMask animalLayer,
