@@ -25,6 +25,7 @@ public class DemoController : MonoBehaviour
     public bool inventoryOpened,
                 animalFeedReset,
                 feedClicked;
+    public PlayerController player;
     float time;
     bool foodCollected,
         animalFeed,
@@ -42,12 +43,21 @@ public class DemoController : MonoBehaviour
         inventoryOpened = false;
         // index = 0;
         currentDemo = demoList[index];
-        // PlayerController.instance.isPlayingDemo = true;
+    }
+
+    private void OnEnable() {
+        player.LockInput();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(EventSystem.current.currentSelectedGameObject){
+            if(EventSystem.current.currentSelectedGameObject.name == "CoverPageStart"){
+                player.UnLockInput();
+            }
+        }
+
         if(Input.anyKey || animalFeed){
             switch(currentDemo.demo){
                 case Demo.RighMove:
@@ -92,7 +102,7 @@ public class DemoController : MonoBehaviour
     }
 
     void JumpThroughFloor(){
-        if(PlayerController.instance.inFloatingFloor){
+        if(player.inFloatingFloor){
             // DisableCurrentDemo();
             if(currentDemo.demoPlayMenuObject) currentDemo.demoPlayMenuObject.SetActive(false);
             Debug.Log("Landed in Floating floor ---> ");
@@ -134,7 +144,7 @@ public class DemoController : MonoBehaviour
             time += Time.deltaTime;
         }else{
             if(currentDemo.demoPlayMenuObject.transform.GetChild(0).gameObject.activeSelf){
-                PlayerController.instance.LockInput();
+                player.LockInput();
                 currentDemo.demoPlayMenuObject.transform.GetChild(0).gameObject.SetActive(false);
             }
 
@@ -214,6 +224,7 @@ public class DemoController : MonoBehaviour
         mainMenu.SetActive(true);
         mainGame.SetActive(true);
         EnableMainMenuObjects();
+        MainGameController.instance.playMode = PlayMode.MainGame;
         MainGameController.instance.ResetScoring();
         CameraHandler.OBJ_followingCamera.B_canfollow = true;
     }

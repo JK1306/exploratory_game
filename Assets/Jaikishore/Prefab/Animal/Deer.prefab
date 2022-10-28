@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: -6256716234948641510}
   - component: {fileID: 1198534065700613517}
   - component: {fileID: 3704347811909807062}
+  - component: {fileID: 7718717875748191165}
   m_Layer: 6
-  m_Name: Bison
+  m_Name: Deer
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,3 +226,22 @@ MonoBehaviour:
   disappearSFX: {fileID: 8300000, guid: ac78beeeffa09964c90000f80c122087, type: 3}
   disappearEffect: {fileID: 198927480420149238, guid: b395d5d6eb4b4b846acc021ee036b744, type: 3}
   sfxPlayInterval: 10
+--- !u!95 &7718717875748191165
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7696078305888203853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aaa6f73151331fd48bec7a539e521e12, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

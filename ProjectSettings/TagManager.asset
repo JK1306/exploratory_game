@@ -13,6 +13,7 @@ TagManager:
   - MovingFloor
   - GateOpener
   - FloatingFloor
+  - Collectable
   layers:
   - Default
   - TransparentFX

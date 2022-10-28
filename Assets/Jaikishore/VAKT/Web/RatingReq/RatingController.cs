@@ -26,7 +26,7 @@ public class RatingController : MonoBehaviour
     private void Awake()
     {
 #if UNITY_ANDROID || UNITY_IOS
-URL = "http://dlearners.in/template_and_games/Game_template_api-s/update_session_score.php"; // PRODUCTION
+        URL = "http://dlearners.in/template_and_games/Game_template_api-s/update_session_score.php"; // PRODUCTION
 #elif UNITY_WEBGL
         URL = "https://dlearners.in/template_and_games/Game_template_api-s/update_session_score.php"; // PRODUCTION
 #endif
@@ -77,7 +77,7 @@ URL = "http://dlearners.in/template_and_games/Game_template_api-s/update_session
         form.AddField("rating", I_selectedStar.ToString());
         form.AddField("comments", IF_feedback.text);
         form.AddField("Si_no", MainController.instance.STR_responseSerial);
-
+        Debug.Log(URL);
         UnityWebRequest www = UnityWebRequest.Post(URL, form);
         yield return www.SendWebRequest();
         if (www.isNetworkError || www.isHttpError)

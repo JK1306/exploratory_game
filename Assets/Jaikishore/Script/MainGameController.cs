@@ -24,12 +24,14 @@ public class MainGameController : MonoBehaviour
     public AudioClip fruitGainAudio,
                     elephantAudio,
                     monkeyAudio,
-                    snakeAudio;
+                    snakeAudio,
+                    gameCompleteAudio;
     public bool animalNearby;
     public string animalName;
     public AnimalController nearbyAnimalContorller;
     public GameObject nearByAnimal;
-    public ParticleSystem playerDeathParticle;
+    public ParticleSystem playerDeathParticle,
+                            gameCompleteParticles;
     public Camera camera_;
     public GameObject lifeLineObject;
     public int playerLifeLine;
@@ -40,6 +42,7 @@ public class MainGameController : MonoBehaviour
     GameObject[] activeAnimals;
     ParticleSystem spawnedParticle;
     float elapsedTime;
+    bool gameCompleted;
 
     public bool B_production;
 
@@ -118,6 +121,7 @@ public class MainGameController : MonoBehaviour
 
     void Start()
     {
+        gameCompleted = false;
         G_levelComplete.SetActive(false);
         G_instructionPage.SetActive(false);
 
@@ -128,6 +132,9 @@ public class MainGameController : MonoBehaviour
         Invoke("THI_gameData", 1f);
         lifeLineObject.transform.GetChild(0).GetComponent<Text>().text = "x"+playerLifeLine;
         // I_currentQuestionCount = -1;
+        // if(playMode == PlayMode.DemoGame){
+        camera_.GetComponent<CameraHandler>().B_canfollow = false;
+        // }
 
         instance = this;
     }
@@ -146,13 +153,8 @@ public class MainGameController : MonoBehaviour
 
     private void Update() {
         elapsedTime += Time.deltaTime;
-        CheckPlayerReachedEnd();
 
-        // if(playMode == PlayMode.MainGame && !CameraHandler.OBJ_followingCamera.B_canfollow){
-        //     CameraHandler.OBJ_followingCamera.B_canfollow = true;
-        // }else if(playMode == PlayMode.DemoGame && CameraHandler.OBJ_followingCamera.B_canfollow){
-        //     CameraHandler.OBJ_followingCamera.B_canfollow = false;
-        // }
+        if(!gameCompleted && playMode != PlayMode.DemoGame) CheckGameCompleted();
     }
 
 #region TEMPLATE_INTEGRATION
@@ -209,6 +211,7 @@ public class MainGameController : MonoBehaviour
     {
         TM_pointFx.text = "";
     }
+
     public IEnumerator IN_CoverImage()
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(STRL_Cover_Img_link[0]);
@@ -339,11 +342,13 @@ public class MainGameController : MonoBehaviour
         }
 
     }
+
     void THI_playAudio()
     {
         EventSystem.current.currentSelectedGameObject.GetComponent<AudioSource>().Play();
         Debug.Log("player clicked. so playing audio");
     }
+
     public void THI_getPreviewData()
     {
         MyJSON json = new MyJSON();
@@ -361,6 +366,7 @@ public class MainGameController : MonoBehaviour
         StartCoroutine(EN_getAudioClips());
         StartCoroutine(IN_CoverImage());
     }
+
     public void THI_TrackGameData(string analysis)
     {
         DBmanager TrainSortingDB = new DBmanager();
@@ -405,6 +411,7 @@ public class MainGameController : MonoBehaviour
             Debug.Log("Sending data to DB success : " + www.downloadHandler.text);
         }
     }
+
     public void BUT_playAgain()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -426,6 +433,19 @@ public class MainGameController : MonoBehaviour
 #endregion TEMPLATE_INTEGRATION
 
 #region GAME_LOGICS
+
+    public void AddPoints(){
+        I_Points += I_correctPoints;
+        TEX_points.text = I_Points.ToString();
+        THI_pointFxOn(true);
+    }
+
+    public void RemovePoints(){
+        I_Points += I_wrongPoints;
+        TEX_points.text = I_Points.ToString();
+        THI_pointFxOn(false);
+    }
+
     void PerformFeedAnimal(){
         DemoController.instance.feedClicked = true;
         inventoryErrorMsgDisplayPanel.text = "";
@@ -456,11 +476,27 @@ public class MainGameController : MonoBehaviour
         CloseInventory();
     }
 
-    public void CheckPlayerReachedEnd(){
+    public void CheckGameCompleted(){
         activeAnimals = GameObject.FindGameObjectsWithTag("Animal");
         if(activeAnimals.Length <= 0){
+            gameCompleted = true;
+            PlayerController.instance.LockInput();
+            camera_.GetComponent<AudioSource>().clip = gameCompleteAudio;
+            camera_.GetComponent<AudioSource>().Play();
+            StartCoroutine(SpawnGameCompleteParticle());
             Debug.Log("Alive Animal Count : "+activeAnimals.Length);
         }
+    }
+
+    IEnumerator SpawnGameCompleteParticle(){
+        yield return new WaitForSeconds(0.5f);
+        spawnedParticle = Instantiate(gameCompleteParticles, PlayerController.instance.gameObject.transform);
+        spawnedParticle.Play();
+        while(camera_.GetComponent<AudioSource>().isPlaying){
+            yield return null;
+        }
+        yield return new WaitForSeconds(1f);
+        THI_Levelcompleted();
     }
 
     public void ResetScoring(){
@@ -500,9 +536,11 @@ public class MainGameController : MonoBehaviour
             }
             STR_currentSelectedAnswer = foodToFeed.gameObject.name;
             THI_TrackGameData("1");
+            AddPoints();
         }else{
             STR_currentSelectedAnswer = foodToFeed.gameObject.name;
             THI_TrackGameData("0");
+            RemovePoints();
         }
     }
 

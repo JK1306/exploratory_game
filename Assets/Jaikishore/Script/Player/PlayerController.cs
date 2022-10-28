@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
         // check animal nearby
         DetectNearbyAnimal();
-        
+
         // if(!reachedEnd) DetectGameEnd();
 
         elapsedTime += Time.deltaTime;
@@ -287,11 +287,17 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
 
         if(other.gameObject.tag == "Fruit" || other.gameObject.tag == "Meat"){
-
             audioSource.clip = MainGameController.instance.fruitGainAudio;
             audioSource.Play();
             MainGameController.instance.CollectCollectable(other.GetComponent<CollectableController>().collectableName);
             Destroy(other.gameObject);
+        }
+
+        if(other.gameObject.tag == "Collectable"){
+            audioSource.clip = MainGameController.instance.fruitGainAudio;
+            audioSource.Play();
+            Destroy(other.gameObject);
+            MainGameController.instance.AddPoints();
         }
 
         if(other.gameObject.tag == "Respawn"){
