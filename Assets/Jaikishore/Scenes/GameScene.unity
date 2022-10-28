@@ -53144,7 +53144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7696078305888203853, guid: c70bb2ad9b30b6346a936e823524e3c6, type: 3}
       propertyPath: m_Name
-      value: Monkey_(Script)_disabled
+      value: Monkey_(Script)
       objectReference: {fileID: 0}
     - target: {fileID: 7696078305888203853, guid: c70bb2ad9b30b6346a936e823524e3c6, type: 3}
       propertyPath: m_IsActive
