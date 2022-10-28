@@ -37,6 +37,7 @@ public class MainGameController : MonoBehaviour
     public GameObject gameOver;
     GameObject spawnObject;
     GameObject foodToFeed;
+    GameObject[] activeAnimals;
     ParticleSystem spawnedParticle;
     float elapsedTime;
 
@@ -145,6 +146,7 @@ public class MainGameController : MonoBehaviour
 
     private void Update() {
         elapsedTime += Time.deltaTime;
+        CheckPlayerReachedEnd();
 
         // if(playMode == PlayMode.MainGame && !CameraHandler.OBJ_followingCamera.B_canfollow){
         //     CameraHandler.OBJ_followingCamera.B_canfollow = true;
@@ -454,6 +456,21 @@ public class MainGameController : MonoBehaviour
         CloseInventory();
     }
 
+    public void CheckPlayerReachedEnd(){
+        activeAnimals = GameObject.FindGameObjectsWithTag("Animal");
+        if(activeAnimals.Length <= 0){
+            Debug.Log("Alive Animal Count : "+activeAnimals.Length);
+        }
+    }
+
+    public void ResetScoring(){
+        foreach (var animal in animals)
+        {
+            animal.score = 0;
+            animal.scoreBoardDisplay.transform.GetChild(1).GetComponent<Text>().text = animal.score.ToString()+"/"+animal.animalCount.ToString();
+        }
+    }
+
     void FeedFruit(Collectables collectable){
         foreach (var item in collectables){
             if(item.collectableType == collectable){
@@ -469,7 +486,7 @@ public class MainGameController : MonoBehaviour
         bool condition2 = (nearbyAnimalContorller.animalCategory == AnimalType.Herbivores && (collectableCategory == EatableType.Grass ));
         bool condition3 = (nearbyAnimalContorller.animalCategory == AnimalType.Omnivores && (collectableCategory == EatableType.Fruit));
 
-        nearbyAnimalContorller.AnimalFeeded();
+        StartCoroutine(nearbyAnimalContorller.AnimalFeeded());
         
         if(condition1 || condition2 || condition3){
             foreach (var animal in animals)

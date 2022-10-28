@@ -116,7 +116,8 @@ public class DemoController : MonoBehaviour
     }
 
     public void InventoryCancelBtn(){
-        currentDemo.demoPlayMenuObject.transform.GetChild(4).gameObject.SetActive(false);
+        Debug.Log(currentDemo.demoPlayMenuObject.transform.childCount);
+        if(currentDemo.demoPlayMenuObject.transform.childCount >= 4) currentDemo.demoPlayMenuObject.transform.GetChild(4).gameObject.SetActive(false);
     }
 
     public void AnimalFeedReset(){
@@ -128,16 +129,18 @@ public class DemoController : MonoBehaviour
     }
 
     void PlayAnimalFeedDemo(){
-        if(Input.anyKey && time < practiceTime){
+        if(!MainGameController.instance.nearbyAnimalContorller){
             animalFeed = true;
-            time += (Time.deltaTime);
+            time += Time.deltaTime;
         }else{
             if(currentDemo.demoPlayMenuObject.transform.GetChild(0).gameObject.activeSelf){
+                PlayerController.instance.LockInput();
                 currentDemo.demoPlayMenuObject.transform.GetChild(0).gameObject.SetActive(false);
             }
 
             if(feedClicked){
                 currentDemo.demoPlayMenuObject.transform.GetChild(3).gameObject.SetActive(false);
+                Invoke(nameof(StartMainGame), 1f);
             }
 
             if(Input.GetMouseButtonDown(0)){
@@ -167,6 +170,13 @@ public class DemoController : MonoBehaviour
         foreach (var item in disableGameObjects)
         {
             item.SetActive(false);
+        }
+    }
+
+    void EnableMainMenuObjects(){
+        foreach (var item in disableGameObjects)
+        {
+            item.SetActive(true);
         }
     }
 
@@ -203,6 +213,8 @@ public class DemoController : MonoBehaviour
         demoPlay.SetActive(false);
         mainMenu.SetActive(true);
         mainGame.SetActive(true);
+        EnableMainMenuObjects();
+        MainGameController.instance.ResetScoring();
         CameraHandler.OBJ_followingCamera.B_canfollow = true;
     }
 }

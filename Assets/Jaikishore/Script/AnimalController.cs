@@ -29,13 +29,13 @@ public class AnimalController : MonoBehaviour
         audioSource.Play();
     }
 
-    public void AnimalFeeded(){
+    public IEnumerator AnimalFeeded(){
         GetComponent<SpriteRenderer>().enabled = false;
         spawnedParticle = Instantiate(disappearEffect, gameObject.transform);
         audioSource.clip = disappearSFX;
         audioSource.Play();
         spawnedParticle.Play();
-        StartCoroutine(nameof(StartDestroying));
+        yield return StartCoroutine(nameof(StartDestroying));
     }
 
     public void PlayAnimalHearableSFX(){
