@@ -19,7 +19,8 @@ public class DemoController : MonoBehaviour
     public GameObject mainGameObject;
     public GameObject buttonPressHighlighter;
     public GameObject leftMoveInstruction,
-                    rightMoveInstruction;
+                    rightMoveInstruction,
+                    instructionPanel;
     public float practiceTime;
     public DemoClass currentDemo;
     public bool inventoryOpened,
@@ -29,7 +30,9 @@ public class DemoController : MonoBehaviour
     float time;
     bool foodCollected,
         animalFeed,
-        foodClicked;
+        foodClicked,
+        playerInputDisabled,
+        demoCompleted;
     [SerializeField] int index;
 
     void Start()
@@ -39,21 +42,30 @@ public class DemoController : MonoBehaviour
         animalFeed = false;
         feedClicked = false;
         foodClicked = false;
+        demoCompleted = false;
         foodCollected = false;
         inventoryOpened = false;
+        playerInputDisabled = false;
         // index = 0;
         currentDemo = demoList[index];
     }
 
-    private void OnEnable() {
-        player.LockInput();
-    }
+    // private void OnEnable() {
+    //     player.LockInput();
+    //     Debug.Log("Input Locked");
+    // }
 
     // Update is called once per frame
     void Update()
     {
+        if(!playerInputDisabled){
+            player.LockInput();
+            playerInputDisabled = true;
+        }
+
         if(EventSystem.current.currentSelectedGameObject){
             if(EventSystem.current.currentSelectedGameObject.name == "CoverPageStart"){
+                Debug.Log("Input Unlocked");
                 player.UnLockInput();
             }
         }
@@ -83,6 +95,7 @@ public class DemoController : MonoBehaviour
     }
 
     void PlayMovementDemo(KeyCode keyPressed){
+        if(player.blockInput) return;
         if(currentDemo.demoPlayGameObject) currentDemo.demoPlayGameObject.SetActive(true);
         if(currentDemo.demoPlayMenuObject) currentDemo.demoPlayMenuObject.SetActive(true);
 
@@ -219,6 +232,8 @@ public class DemoController : MonoBehaviour
     }
 
     public void StartMainGame(){
+        demoCompleted = true;
+        instructionPanel.SetActive(true);
         demoMenu.SetActive(false);
         demoPlay.SetActive(false);
         mainMenu.SetActive(true);
@@ -227,6 +242,7 @@ public class DemoController : MonoBehaviour
         MainGameController.instance.playMode = PlayMode.MainGame;
         MainGameController.instance.ResetScoring();
         CameraHandler.OBJ_followingCamera.B_canfollow = true;
+        currentDemo = demoList[++index];
     }
 }
 

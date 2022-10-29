@@ -8892,6 +8892,7 @@ MonoBehaviour:
   hearableDistance: 12
   inGround: 0
   inFloatingFloor: 0
+  blockInput: 0
   isPlayingDemo: 0
   runSFXElapsedTime: 0.5
   camerMovementDuration: 2
@@ -30455,10 +30456,15 @@ MonoBehaviour:
     nextDemo: 0
     demoPlayGameObject: {fileID: 2048029786}
     demoPlayMenuObject: {fileID: 902286866}
+  - demo: 0
+    nextDemo: 0
+    demoPlayGameObject: {fileID: 0}
+    demoPlayMenuObject: {fileID: 0}
   mainGameObject: {fileID: 840117233}
   buttonPressHighlighter: {fileID: 1758021489}
   leftMoveInstruction: {fileID: 252226985}
   rightMoveInstruction: {fileID: 1104944897}
+  instructionPanel: {fileID: 408716999}
   practiceTime: 1.5
   currentDemo:
     demo: 6
@@ -30468,6 +30474,7 @@ MonoBehaviour:
   inventoryOpened: 0
   animalFeedReset: 0
   feedClicked: 0
+  player: {fileID: 1055489419}
   index: 0
 --- !u!1001 &753721728
 PrefabInstance:
@@ -39349,6 +39356,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 738147839}
     m_Modifications:
+    - target: {fileID: 7333317375648851292, guid: 15f3a5b7cfed3444ca2b7c8d8b3718fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7333317375648851292, guid: 15f3a5b7cfed3444ca2b7c8d8b3718fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 408716999}
+    - target: {fileID: 7333317375648851292, guid: 15f3a5b7cfed3444ca2b7c8d8b3718fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7333317375648851292, guid: 15f3a5b7cfed3444ca2b7c8d8b3718fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7333317376343489410, guid: 15f3a5b7cfed3444ca2b7c8d8b3718fe, type: 3}
       propertyPath: m_Name
       value: Instruction Page
@@ -46311,6 +46334,7 @@ MonoBehaviour:
   hearableDistance: 15
   inGround: 0
   inFloatingFloor: 0
+  blockInput: 0
   isPlayingDemo: 0
   runSFXElapsedTime: 0.5
   camerMovementDuration: 2

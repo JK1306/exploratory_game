@@ -441,7 +441,7 @@ public class MainGameController : MonoBehaviour
     }
 
     public void RemovePoints(){
-        I_Points += I_wrongPoints;
+        I_Points -= I_wrongPoints;
         TEX_points.text = I_Points.ToString();
         THI_pointFxOn(false);
     }
@@ -500,6 +500,8 @@ public class MainGameController : MonoBehaviour
     }
 
     public void ResetScoring(){
+        I_Points = 0;
+        TEX_points.text = "0";
         foreach (var animal in animals)
         {
             animal.score = 0;

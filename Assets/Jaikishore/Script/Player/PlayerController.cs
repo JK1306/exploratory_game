@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public bool inGround,
                 // Used by demo script
                 inFloatingFloor,
+                blockInput,
                 isPlayingDemo;
     public float runSFXElapsedTime,
                 camerMovementDuration;
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour
     AudioSource audioSource;
     bool canJump,
         playerDead,
-        blockInput,
         // reachedEnd,
         playerJumped;
     Collider2D[] animalsNearby,
