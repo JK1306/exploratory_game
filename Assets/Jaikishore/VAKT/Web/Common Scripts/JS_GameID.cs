@@ -15,7 +15,7 @@ public class JS_GameID : MonoBehaviour
     }
     private void Start()
     {
-        Application.ExternalEval("OnAppReady()");     
+        Application.ExternalEval("OnAppReady()");
     }
 
     public void JS_getID(string val)

@@ -21,6 +21,7 @@ public class DemoController : MonoBehaviour
     public GameObject leftMoveInstruction,
                     rightMoveInstruction,
                     instructionPanel;
+    public AudioClip instructionAudio;
     public float practiceTime;
     public DemoClass currentDemo;
     public bool inventoryOpened,
@@ -32,7 +33,8 @@ public class DemoController : MonoBehaviour
         animalFeed,
         foodClicked,
         playerInputDisabled,
-        demoCompleted;
+        demoCompleted,
+        demoAudioPlayed;
     [SerializeField] int index;
 
     void Start()
@@ -46,6 +48,7 @@ public class DemoController : MonoBehaviour
         foodCollected = false;
         inventoryOpened = false;
         playerInputDisabled = false;
+        demoAudioPlayed = false;
         // index = 0;
         currentDemo = demoList[index];
     }
@@ -58,14 +61,21 @@ public class DemoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(currentDemo.demo == Demo.None){ return; }
+        // Lock Play Input in Demo while starting the game input 
         if(!playerInputDisabled){
             player.LockInput();
             playerInputDisabled = true;
         }
 
+        if(currentDemo.demoPlayMenuObject.activeSelf && !demoAudioPlayed && !player.blockInput){
+            CameraHandler.OBJ_followingCamera.gameObject.GetComponent<AudioSource>().clip = currentDemo.demoInstructionAudio;
+            CameraHandler.OBJ_followingCamera.gameObject.GetComponent<AudioSource>().Play();
+            demoAudioPlayed = true;
+        }
+
         if(EventSystem.current.currentSelectedGameObject){
             if(EventSystem.current.currentSelectedGameObject.name == "CoverPageStart"){
-                Debug.Log("Input Unlocked");
                 player.UnLockInput();
             }
         }
@@ -139,22 +149,22 @@ public class DemoController : MonoBehaviour
     }
 
     public void InventoryCancelBtn(){
-        Debug.Log(currentDemo.demoPlayMenuObject.transform.childCount);
-        if(currentDemo.demoPlayMenuObject.transform.childCount >= 4) currentDemo.demoPlayMenuObject.transform.GetChild(4).gameObject.SetActive(false);
+        if(currentDemo.demo != Demo.None){
+            if(currentDemo.demoPlayMenuObject.transform.childCount >= 4) currentDemo.demoPlayMenuObject.transform.GetChild(4).gameObject.SetActive(false);
+        }
     }
 
-    public void AnimalFeedReset(){
-        foodClicked = false;
-        feedClicked = false;
-        inventoryOpened = false;
-        currentDemo.demoPlayMenuObject.transform.GetChild(3).gameObject.SetActive(false);
-        currentDemo.demoPlayMenuObject.transform.GetChild(4).gameObject.SetActive(true);
-    }
+    // public void AnimalFeedReset(){
+    //     foodClicked = false;
+    //     feedClicked = false;
+    //     inventoryOpened = false;
+    //     currentDemo.demoPlayMenuObject.transform.GetChild(3).gameObject.SetActive(false);
+    //     currentDemo.demoPlayMenuObject.transform.GetChild(4).gameObject.SetActive(true);
+    // }
 
     void PlayAnimalFeedDemo(){
         if(!MainGameController.instance.nearbyAnimalContorller){
             animalFeed = true;
-            time += Time.deltaTime;
         }else{
             if(currentDemo.demoPlayMenuObject.transform.GetChild(0).gameObject.activeSelf){
                 player.LockInput();
@@ -187,6 +197,15 @@ public class DemoController : MonoBehaviour
                 currentDemo.demoPlayMenuObject.transform.GetChild(1).gameObject.SetActive(true);
             }
         }
+    }
+
+    public void PlayInstructionAudio(){
+        CameraHandler.OBJ_followingCamera.gameObject.GetComponent<AudioSource>().clip = instructionAudio;
+        CameraHandler.OBJ_followingCamera.gameObject.GetComponent<AudioSource>().Play();
+    }
+
+    public void StopInstructionAudio(){
+        CameraHandler.OBJ_followingCamera.gameObject.GetComponent<AudioSource>().Stop();
     }
 
     void DisableMainMenuObjects(){
@@ -229,11 +248,15 @@ public class DemoController : MonoBehaviour
         Debug.Log("Index : "+index);
         if(currentDemo.demoPlayGameObject) currentDemo.demoPlayGameObject.SetActive(true);
         if(currentDemo.demoPlayMenuObject) currentDemo.demoPlayMenuObject.SetActive(true);
+        demoAudioPlayed = false;
     }
 
     public void StartMainGame(){
         demoCompleted = true;
         instructionPanel.SetActive(true);
+
+        PlayInstructionAudio();
+
         demoMenu.SetActive(false);
         demoPlay.SetActive(false);
         mainMenu.SetActive(true);
@@ -242,7 +265,7 @@ public class DemoController : MonoBehaviour
         MainGameController.instance.playMode = PlayMode.MainGame;
         MainGameController.instance.ResetScoring();
         CameraHandler.OBJ_followingCamera.B_canfollow = true;
-        currentDemo = demoList[++index];
+        currentDemo = demoList[demoList.Count - 1];
     }
 }
 
@@ -252,6 +275,7 @@ public class DemoClass{
                 nextDemo;
     public GameObject demoPlayGameObject,
                         demoPlayMenuObject;
+    public AudioClip demoInstructionAudio;
 }
 
 public enum Demo{

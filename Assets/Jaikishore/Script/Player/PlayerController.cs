@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
         // if(!reachedEnd) DetectGameEnd();
 
-        elapsedTime += Time.deltaTime;
+        if(Input.anyKey) elapsedTime += Time.deltaTime;
     }
 
     public void SpawnPlayer(){

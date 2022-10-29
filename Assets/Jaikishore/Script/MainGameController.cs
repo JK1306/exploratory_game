@@ -22,14 +22,9 @@ public class MainGameController : MonoBehaviour
     public Button cancelBtn;
 
     public AudioClip fruitGainAudio,
-                    elephantAudio,
-                    monkeyAudio,
-                    snakeAudio,
                     gameCompleteAudio;
     public bool animalNearby;
-    public string animalName;
     public AnimalController nearbyAnimalContorller;
-    public GameObject nearByAnimal;
     public ParticleSystem playerDeathParticle,
                             gameCompleteParticles;
     public Camera camera_;
@@ -107,6 +102,12 @@ public class MainGameController : MonoBehaviour
 
     private void Awake()
     {
+        if(instance == null){
+            instance = this;
+        }else{
+            Destroy(gameObject);
+        }
+
         if (B_production)
         {
             URL = "https://dlearners.in/template_and_games/Game_template_api-s/game_template_1.php"; // PRODUCTION FETCH DATA
@@ -121,6 +122,7 @@ public class MainGameController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("In MainGameController "+instance);
         gameCompleted = false;
         G_levelComplete.SetActive(false);
         G_instructionPage.SetActive(false);
@@ -135,8 +137,6 @@ public class MainGameController : MonoBehaviour
         // if(playMode == PlayMode.DemoGame){
         camera_.GetComponent<CameraHandler>().B_canfollow = false;
         // }
-
-        instance = this;
     }
 
     private void OnEnable() {
@@ -451,7 +451,7 @@ public class MainGameController : MonoBehaviour
         inventoryErrorMsgDisplayPanel.text = "";
         if(!animalNearby){
             Debug.Log("can't feed food");
-            DemoController.instance.AnimalFeedReset();
+            // DemoController.instance.AnimalFeedReset();
 
             inventoryErrorMsgDisplayPanel.text = "Go Near to animal to Feed";
             return;

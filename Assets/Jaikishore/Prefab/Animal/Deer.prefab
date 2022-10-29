@@ -221,8 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalCategory: 1
-  animalName: Bison
-  animalSFX: {fileID: 8300000, guid: f13bd8bf667e54641ac782b4bae2e54e, type: 3}
+  animalName: Deer
+  animalSFX: {fileID: 8300000, guid: 66e7f1cdce6eb874290a3a933323995f, type: 3}
   disappearSFX: {fileID: 8300000, guid: ac78beeeffa09964c90000f80c122087, type: 3}
   disappearEffect: {fileID: 198927480420149238, guid: b395d5d6eb4b4b846acc021ee036b744, type: 3}
   sfxPlayInterval: 10
