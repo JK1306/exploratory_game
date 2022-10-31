@@ -39,6 +39,7 @@ public class AnimalController : MonoBehaviour
     }
 
     public void PlayAnimalHearableSFX(){
+        if(audioSource == null) audioSource = GetComponent<AudioSource>();
         if(audioSource.isPlaying || (sfxPlayInterval > sfxPlayed)) { return; }
 
         audioSource.volume = 0.15f;
