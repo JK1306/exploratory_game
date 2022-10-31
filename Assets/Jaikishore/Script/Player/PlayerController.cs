@@ -78,16 +78,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void DetectGameEnd(){
-        gameEndColliders = Physics2D.OverlapCircleAll(transform.position, interactableDistance, gameEndLayer);
-        if(gameEndColliders.Length > 0){
-            foreach(Collider2D gameEnd in gameEndColliders){
-                // gameEnd.GetComponent<Animator>().Play("flagFly");
-                gameEnd.GetComponent<Animator>().Play("flagHoist");
-                // reachedEnd = true;
-            }
-        }
-    }
+    // void DetectGameEnd(){
+    //     gameEndColliders = Physics2D.OverlapCircleAll(transform.position, interactableDistance, gameEndLayer);
+    //     if(gameEndColliders.Length > 0){
+    //         foreach(Collider2D gameEnd in gameEndColliders){
+    //             // gameEnd.GetComponent<Animator>().Play("flagFly");
+    //             gameEnd.GetComponent<Animator>().Play("flagHoist");
+    //             // reachedEnd = true;
+    //         }
+    //     }
+    // }
 
     void DetectNearbyAnimal(){
         animalsNearby = Physics2D.OverlapCircleAll(transform.position, interactableDistance, animalLayer);
@@ -196,7 +196,6 @@ public class PlayerController : MonoBehaviour
                     );
                 }
 
-                dustParticle.Play();
                 gameObject.transform.position = playerPosition.position;
                 gameObject.transform.localScale = playerPosition.localScale;
                 break;

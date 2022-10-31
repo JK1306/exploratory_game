@@ -66,8 +66,9 @@ public class MainController : MonoBehaviour
         WEB = true;
         //  Debug.Log("WEB");
 #endif
-        MOBILE = false;
-        WEB = true;
+        // for testing
+        // MOBILE = false;
+        // WEB = true;
 
         //if (MOBILE)
         //{
@@ -83,8 +84,8 @@ public class MainController : MonoBehaviour
 
            // testing
           // STR_childID = "336";
-           // mode = "live";
-           mode = "preview";
+        //    mode = "live";
+        //    mode = "preview";
 
             // Live ID's
             //  STR_GameID = "413"; //train sorting
