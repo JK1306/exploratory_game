@@ -34,6 +34,7 @@ public class DemoController : MonoBehaviour
         foodClicked,
         playerInputDisabled,
         demoCompleted,
+        playerBlockedInput,
         demoAudioPlayed;
     [SerializeField] int index;
 
@@ -49,6 +50,7 @@ public class DemoController : MonoBehaviour
         inventoryOpened = false;
         playerInputDisabled = false;
         demoAudioPlayed = false;
+        playerBlockedInput = false;
         // index = 0;
         currentDemo = demoList[index];
     }
@@ -75,8 +77,9 @@ public class DemoController : MonoBehaviour
         }
 
         if(EventSystem.current.currentSelectedGameObject){
-            if(EventSystem.current.currentSelectedGameObject.name == "CoverPageStart"){
+            if(EventSystem.current.currentSelectedGameObject.name == "CoverPageStart" && !playerBlockedInput){
                 player.UnLockInput();
+                playerBlockedInput = true;
             }
         }
 
