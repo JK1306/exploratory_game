@@ -1,0 +1,672 @@
+fileFormatVersion: 2
+guid: f9c5fbd2469452946b934b8b5298e297
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5792619477118390128
+    second: habitats_game-grassland_0
+  - first:
+      213: 6441648134174963076
+    second: habitats_game-grassland_1
+  - first:
+      213: -856603794872274683
+    second: habitats_game-grassland_2
+  - first:
+      213: 307927203448679262
+    second: habitats_game-grassland_3
+  - first:
+      213: -4131075433335206717
+    second: habitats_game-grassland_4
+  - first:
+      213: -2013966355716914237
+    second: habitats_game-grassland_5
+  - first:
+      213: -3089696980304162880
+    second: habitats_game-grassland_6
+  - first:
+      213: -3509687830691727481
+    second: habitats_game-grassland_7
+  - first:
+      213: 2155860871305157341
+    second: habitats_game-grassland_8
+  - first:
+      213: 4484212125029604540
+    second: habitats_game-grassland_9
+  - first:
+      213: -7689102831216277918
+    second: habitats_game-grassland_10
+  - first:
+      213: 3823169204332809122
+    second: habitats_game-grassland_11
+  - first:
+      213: 1950876131029223328
+    second: habitats_game-grassland_12
+  - first:
+      213: -8342426225977175060
+    second: habitats_game-grassland_13
+  - first:
+      213: -2220535395774445489
+    second: habitats_game-grassland_14
+  - first:
+      213: -8005789450870662774
+    second: habitats_game-grassland_15
+  - first:
+      213: 3469472492830380705
+    second: habitats_game-grassland_16
+  - first:
+      213: 4168968258948403151
+    second: habitats_game-grassland_17
+  - first:
+      213: 7537784242756219729
+    second: habitats_game-grassland_18
+  - first:
+      213: -7049926107352009211
+    second: habitats_game-grassland_19
+  - first:
+      213: 3813690853447178654
+    second: habitats_game-grassland_20
+  - first:
+      213: 1874441225515055994
+    second: habitats_game-grassland_21
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: habitats_game-grassland_0
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 1575
+        width: 446
+        height: 449
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07f86ac49b4836050800000000000000
+      internalID: 5792619477118390128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_1
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 1848
+        width: 603
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4857e8549d4556950800000000000000
+      internalID: 6441648134174963076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_2
+      rect:
+        serializedVersion: 2
+        x: 1270
+        y: 1793
+        width: 211
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 501f265136bbc14f0800000000000000
+      internalID: -856603794872274683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_3
+      rect:
+        serializedVersion: 2
+        x: 1540
+        y: 1793
+        width: 222
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5bec3af82af54400800000000000000
+      internalID: 307927203448679262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_4
+      rect:
+        serializedVersion: 2
+        x: 1808
+        y: 1793
+        width: 216
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cc46bfd7c87ba6c0800000000000000
+      internalID: -4131075433335206717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_5
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 1374
+        width: 602
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c3c7e91544fc04e0800000000000000
+      internalID: -2013966355716914237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_6
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 1375
+        width: 202
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cf8f5167f03f15d0800000000000000
+      internalID: -3089696980304162880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_7
+      rect:
+        serializedVersion: 2
+        x: 1270
+        y: 1528
+        width: 211
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 787bb1b53851b4fc0800000000000000
+      internalID: -3509687830691727481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_8
+      rect:
+        serializedVersion: 2
+        x: 1540
+        y: 1528
+        width: 222
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddade4b4a082bed10800000000000000
+      internalID: 2155860871305157341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_9
+      rect:
+        serializedVersion: 2
+        x: 1808
+        y: 1528
+        width: 215
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbc93e95b2f1b3e30800000000000000
+      internalID: 4484212125029604540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_10
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 704
+        width: 648
+        height: 617
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26647efa6b1da4590800000000000000
+      internalID: -7689102831216277918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_11
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 854
+        width: 445
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ab4874a220ae0530800000000000000
+      internalID: 3823169204332809122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_12
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 868
+        width: 684
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a709c64187e21b10800000000000000
+      internalID: 1950876131029223328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_13
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 348
+        width: 242
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce35abb2c8fb93c80800000000000000
+      internalID: -8342426225977175060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_14
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 363
+        width: 234
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f48ceab82d21f21e0800000000000000
+      internalID: -2220535395774445489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_15
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 363
+        width: 511
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a89d84239e8b5e090800000000000000
+      internalID: -8005789450870662774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_16
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 53
+        width: 256
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a2d425a9da062030800000000000000
+      internalID: 3469472492830380705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_17
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 53
+        width: 248
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcf8f7a1b862bd930800000000000000
+      internalID: 4168968258948403151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_18
+      rect:
+        serializedVersion: 2
+        x: 962
+        y: 39
+        width: 248
+        height: 230
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1537507f4d69b9860800000000000000
+      internalID: 7537784242756219729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_19
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 11
+        width: 285
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 506f786be81a92e90800000000000000
+      internalID: -7049926107352009211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_20
+      rect:
+        serializedVersion: 2
+        x: 1550
+        y: 8
+        width: 229
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9910ea10a3fce430800000000000000
+      internalID: 3813690853447178654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: habitats_game-grassland_21
+      rect:
+        serializedVersion: 2
+        x: 1813
+        y: 12
+        width: 189
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7b3c270d5a530a10800000000000000
+      internalID: 1874441225515055994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

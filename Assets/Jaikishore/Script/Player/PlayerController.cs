@@ -311,10 +311,10 @@ public class PlayerController : MonoBehaviour
 
 #region GIZMOS_LOGIC
     
-    void OnDrawGizmosSelected(){
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, hearableDistance);
-    }
+    // void OnDrawGizmosSelected(){
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawSphere(transform.position, hearableDistance);
+    // }
 
 #endregion
 
