@@ -32,12 +32,16 @@ public class MainGameController : MonoBehaviour
     public int playerLifeLine;
     public PlayMode playMode;
     public GameObject gameOver;
+    public int movementDirection;
     GameObject spawnObject;
     GameObject foodToFeed;
     GameObject[] activeAnimals;
     ParticleSystem spawnedParticle;
     float elapsedTime;
     bool gameCompleted;
+    bool moveRight,
+        moveLeft;
+    
 
     public bool B_production;
 
@@ -433,6 +437,10 @@ public class MainGameController : MonoBehaviour
 #endregion TEMPLATE_INTEGRATION
 
 #region GAME_LOGICS
+
+    public void MobileInputHandler(int movementDirection){
+        PlayerController.instance.movementDirection = -1f;
+    }
 
     public void AddPoints(){
         I_Points += I_correctPoints;

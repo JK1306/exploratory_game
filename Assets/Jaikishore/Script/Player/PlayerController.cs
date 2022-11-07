@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,6 +36,9 @@ public class PlayerController : MonoBehaviour
             respawnPosition;
     Rigidbody2D rb;
     AudioSource audioSource;
+    public float movementDirection;
+    public bool jump;
+    float movement;
     bool canJump,
         playerDead,
         // reachedEnd,
@@ -50,6 +55,7 @@ public class PlayerController : MonoBehaviour
         playerInitialPosition = transform.position;
         walkSpeed = movementSpeed;
         instance = this;
+        jump = false;
         canJump = true;
         blockInput = false;
         playerDead = false;
@@ -59,12 +65,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         InputHandler();
 
         // check animal nearby
         DetectNearbyAnimal();
-
-        // if(!reachedEnd) DetectGameEnd();
 
         if(Input.anyKey) elapsedTime += Time.deltaTime;
     }
@@ -77,17 +82,6 @@ public class PlayerController : MonoBehaviour
             playerDead = false;
         }
     }
-
-    // void DetectGameEnd(){
-    //     gameEndColliders = Physics2D.OverlapCircleAll(transform.position, interactableDistance, gameEndLayer);
-    //     if(gameEndColliders.Length > 0){
-    //         foreach(Collider2D gameEnd in gameEndColliders){
-    //             // gameEnd.GetComponent<Animator>().Play("flagFly");
-    //             gameEnd.GetComponent<Animator>().Play("flagHoist");
-    //             // reachedEnd = true;
-    //         }
-    //     }
-    // }
 
     void DetectNearbyAnimal(){
         animalsNearby = Physics2D.OverlapCircleAll(transform.position, interactableDistance, animalLayer);
@@ -128,10 +122,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void InputHandler()
+    public void InputHandler()
     {
         if(!blockInput) {
-            if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.X)))
+            bool verticalInput = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.X) || jump);
+            if (verticalInput)
             {
                 if(canJump){
                     playerJumped = true;
@@ -142,7 +137,9 @@ public class PlayerController : MonoBehaviour
                     // return;
                 }
             }
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
+
+            bool horizontalInput = (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow) || (movementDirection != 0));
+            if (horizontalInput)
             {
                 PlayerMovementHandler(PlayerMovement.Run);
                 if(!inGround){
@@ -172,23 +169,27 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerMovementHandler(PlayerMovement playerMovement){
+        Debug.Log("in PlayerMovementHandler");
         playerPosition = gameObject.transform;
+        movement = (movementDirection != 0)? movementDirection : Input.GetAxis("Horizontal");
+        Debug.Log("MovementDirection : "+movementDirection);
+        Debug.Log("Movement : "+movement);
         switch(playerMovement){
             case PlayerMovement.Run:
                 playerPosition.position = new Vector3(
-                    playerPosition.position.x + ((Input.GetAxis("Horizontal") * movementSpeed) * Time.deltaTime),
+                    playerPosition.position.x + (movement * movementSpeed * Time.deltaTime),
                     playerPosition.position.y,
                     playerPosition.position.z
                 );
 
-                if(Input.GetAxis("Horizontal") > 0 && playerPosition.localScale.x < 0){
+                if(movement > 0 && playerPosition.localScale.x < 0){
                     playerPosition.localScale = new Vector3(
                        Mathf.Abs(playerPosition.localScale.x),
                        playerPosition.localScale.y,
                        playerPosition.localScale.z
                     );
                 }
-                else if(Input.GetAxis("Horizontal") < 0 && playerPosition.localScale.x > 0){
+                else if(movement < 0 && playerPosition.localScale.x > 0){
                     playerPosition.localScale = new Vector3(
                        -(playerPosition.localScale.x),
                        playerPosition.localScale.y,
@@ -309,14 +310,14 @@ public class PlayerController : MonoBehaviour
         movementSpeed = walkSpeed;
     }
 
-#region GIZMOS_LOGIC
-    
+    #region GIZMOS_LOGIC
+
     // void OnDrawGizmosSelected(){
     //     Gizmos.color = Color.yellow;
     //     Gizmos.DrawSphere(transform.position, hearableDistance);
     // }
 
-#endregion
+    #endregion
 
 }
 
