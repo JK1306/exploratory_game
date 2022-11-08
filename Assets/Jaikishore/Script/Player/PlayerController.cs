@@ -169,11 +169,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerMovementHandler(PlayerMovement playerMovement){
-        Debug.Log("in PlayerMovementHandler");
         playerPosition = gameObject.transform;
         movement = (movementDirection != 0)? movementDirection : Input.GetAxis("Horizontal");
-        Debug.Log("MovementDirection : "+movementDirection);
-        Debug.Log("Movement : "+movement);
         switch(playerMovement){
             case PlayerMovement.Run:
                 playerPosition.position = new Vector3(

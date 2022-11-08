@@ -59,7 +59,7 @@ public class PauseController : MonoBehaviour
     {
 #if UNITY_ANDROID || UNITY_IOS
 Screen.orientation = ScreenOrientation.Portrait;
-// Destroy(VAKT_controller.instance.G_currentActivity);
+Destroy(VAKT_controller.instance.G_currentActivity);
 #elif UNITY_WEBGL
         Application.ExternalEval("closeApplication()");
 #endif

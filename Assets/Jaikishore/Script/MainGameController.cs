@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using ForestHabitatGame;
 
 public class MainGameController : MonoBehaviour
 {
@@ -32,6 +33,9 @@ public class MainGameController : MonoBehaviour
     public int playerLifeLine;
     public PlayMode playMode;
     public GameObject gameOver;
+    public GameObject androidInput,
+                        webGLDemoScreen,
+                        androidDemoScreen;
     public int movementDirection;
     GameObject spawnObject;
     GameObject foodToFeed;
@@ -126,7 +130,13 @@ public class MainGameController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("In MainGameController "+instance);
+        if(MainController.instance.MOBILE){
+            androidInput.SetActive(true);
+            androidDemoScreen.SetActive(true);
+        }else{
+            webGLDemoScreen.SetActive(true);
+        }
+
         gameCompleted = false;
         G_levelComplete.SetActive(false);
         G_instructionPage.SetActive(false);
@@ -455,7 +465,8 @@ public class MainGameController : MonoBehaviour
     }
 
     void PerformFeedAnimal(){
-        DemoController.instance.feedClicked = true;
+        ForestHabitatGame.DemoController.instance.feedClicked = true;
+        // InstructionController Demo.instance.feedClicked
         inventoryErrorMsgDisplayPanel.text = "";
         if(!animalNearby){
             Debug.Log("can't feed food");
@@ -556,7 +567,8 @@ public class MainGameController : MonoBehaviour
 
     void ViewInventory(){
         if(inventoryPanel.activeSelf) { return; }
-        DemoController.instance.inventoryOpened = true;
+        ForestHabitatGame.DemoController.instance.inventoryOpened = true;
+        // InstructionController.instance.inventoryOpened = true;
         inventoryButton.transform.parent.GetComponent<Animator>().enabled = false;
         inventoryPanel.SetActive(true);
         foreach (var item in collectables)

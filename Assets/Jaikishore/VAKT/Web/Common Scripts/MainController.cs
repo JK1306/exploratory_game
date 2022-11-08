@@ -66,9 +66,10 @@ public class MainController : MonoBehaviour
         WEB = true;
         //  Debug.Log("WEB");
 #endif
+        // MOBILE = true;
         // for testing
-        // MOBILE = false;
-        // WEB = true;
+        // MOBILE = true;
+        // WEB = false;
 
         //if (MOBILE)
         //{
@@ -78,7 +79,7 @@ public class MainController : MonoBehaviour
         //}
         if (WEB)
         {
-            G_GameManager.SetActive(false);
+            // G_GameManager.SetActive(false);
             G_GameID.SetActive(true);
 
 
